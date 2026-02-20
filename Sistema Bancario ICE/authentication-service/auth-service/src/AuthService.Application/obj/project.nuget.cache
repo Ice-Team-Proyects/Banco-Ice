@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JPJEsvZ9T2I=",
+  "dgSpecHash": "H4ZklGuOn8Y=",
   "success": true,
-  "projectFilePath": "C:\\Users\\joj\\Desktop\\Sistema Bancario ICE\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj",
+  "projectFilePath": "C:\\Users\\joj\\Documents\\Banco-Ice\\Sistema Bancario ICE\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\joj\\.nuget\\packages\\bouncycastle.cryptography\\2.5.1\\bouncycastle.cryptography.2.5.1.nupkg.sha512",
     "C:\\Users\\joj\\.nuget\\packages\\cloudinarydotnet\\1.27.7\\cloudinarydotnet.1.27.7.nupkg.sha512",
