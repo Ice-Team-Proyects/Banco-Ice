@@ -131,3 +131,13 @@ El proyecto usa una arquitectura de microservicios
 Este proyecto representa la implementación de un Sistema Bancario Digital diseñado bajo principios de seguridad, escalabilidad y arquitectura modular, aplicando la metodología ágil SCRUM para garantizar un desarrollo iterativo y eficiente.
 
 El enfoque basado en microservicios permite una mejor organización de los componentes del sistema, asegurando la correcta gestión de autenticación, cuentas bancarias, transacciones y divisas. Además, el uso de tecnologías modernas y buenas prácticas de desarrollo garantiza la integridad de la información, la seguridad en las operaciones financieras y la facilidad de mantenimiento y crecimiento futuro del sistema.
+
+# Reconocimiento
+
+Este proyecto está basado en el repositorio:
+https://github.com/IN6AV-promo-33/auth-service-dotnet.git
+
+Autor original: Braulio Echeverría  
+Proyecto académico IN6AV – Kinal
+
+El equipo Ice Team realizó modificaciones y expansión del código para su adaptación como Sistema Bancario Digital.
