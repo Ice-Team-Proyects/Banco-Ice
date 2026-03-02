@@ -162,7 +162,7 @@ Duración por Sprint: 2--3 semanas
 
 ### Product Owner
 
-Rigoberto Godínez Fajardo\
+Rigoberto Godínez Fajardo
 
 ### Scrum Master
 
