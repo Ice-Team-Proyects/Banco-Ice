@@ -7,6 +7,13 @@ import {
 
 export const createFieldService = async (req, res) => {
     try {
+        if (req.user.role !== 'ADMIN_ROLE') { 
+            return res.status(403).json({
+                success: false,
+                message: 'No tienes permisos para crear servicios bancarios',
+            });
+        }
+
         const service = await createFieldServiceRecord({
             serviceData: req.body,
         });
