@@ -8,7 +8,7 @@ import { dbConnection } from './db.js';
 import { corsOptions } from './cors.configuration.js'
 import { helmetOptions } from './helmet.configuration.js'
 import { requestLimit } from './rateLimit.configuration.js';
-import { errorHandler } from '../middlewares/handle-errors.js';
+import { swaggerDocs, swaggerUi } from './documentation.js'; 
 import servicesbankingRoutes from '../src/servicesbanking/servicebanking.routes.js';
 import transactionRoutes from '../src/transactions/transaction.routes.js';
 import accountRoutes from '../src/accounts/account.routes.js';
@@ -25,6 +25,10 @@ const middlewares = (app) => {
 };
 
 const routes = (app) => {
+    // --- RUTA DE LA DOCUMENTACIÓN ---
+    // La documentación será accesible en http://localhost:PORT/api-docs
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
     app.use(`${BASE_PATH}/servicesbanking`, servicesbankingRoutes);
     app.use(`${BASE_PATH}/transactions`, transactionRoutes);
     app.use(`${BASE_PATH}/accounts`, accountRoutes);
@@ -46,7 +50,7 @@ const routes = (app) => {
 
 export const initServer = async () => {
     const app = express();
-    const PORT = process.env.PORT;
+    const PORT = process.env.PORT || 3000; // Backup por si el env no carga
     app.set('trust proxy', 1);
 
     try {
@@ -55,7 +59,8 @@ export const initServer = async () => {
         routes(app);
         app.listen(PORT, () => {
             console.log(`Banco Ice admin server running on port ${PORT}`);
-            console.log(`Health check http://localhost:${PORT}${BASE_PATH}/health`);
+            console.log(`Health check: http://localhost:${PORT}${BASE_PATH}/health`);
+            console.log(`Documentación: http://localhost:${PORT}/api-docs`);
         });
     } catch (err) {
         console.error(`Error al iniciar el servidor: ${err.message}`);
