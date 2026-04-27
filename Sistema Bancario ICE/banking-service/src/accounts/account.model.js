@@ -34,6 +34,12 @@ const accountSchema = new Schema(
             trim: true,
         },
 
+        userId: {
+            type: String,
+            required: false,
+            trim: true,
+        }, 
+
         balance: {
             type: Number,
             default: 0,
@@ -64,5 +70,6 @@ const accountSchema = new Schema(
 );
 
 accountSchema.index({ isActive: 1 });
+accountSchema.index({ userId: 1 });
 
 export default model('Account', accountSchema);

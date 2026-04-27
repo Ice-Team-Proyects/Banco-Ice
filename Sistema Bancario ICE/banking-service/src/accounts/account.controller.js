@@ -13,7 +13,10 @@ import {
 export const createAccount = async (req, res) => {
     try {
         const account = await createAccountRecord({
-            accountData: req.body,
+            accountData: {
+                ...req.body,
+                userId: req.user.id,
+            },
         });
 
         res.status(201).json({
@@ -32,6 +35,13 @@ export const createAccount = async (req, res) => {
 
 export const getAccounts = async (req, res) => {
     try {
+        if (req.user.role !== 'ADMIN_ROLE') {
+            return res.status(403).json({
+                success: false,
+                message: 'No tienes permisos para listar las cuentas bancarias',
+            });
+        }
+
         const {
             page = 1,
             limit = 10,
