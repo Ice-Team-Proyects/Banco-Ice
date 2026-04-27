@@ -2,13 +2,19 @@
 
 import Transaction from './transaction.model.js';
 
-export const createTransactionRecord = async ({ transactionData }) => {
+export const createTransactionRecord = async ({ transactionData, user }) => {
     const data = { ...transactionData };
 
     if (!data.transactionCode) {
         const timestamp = Date.now();
-        const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+        const random = Math.floor(Math.random() * 10000)
+            .toString()
+            .padStart(4, '0');
         data.transactionCode = `TXN-${timestamp}-${random}`;
+    }
+
+    if (user) {
+        data.user = user;
     }
 
     const transaction = new Transaction(data);
@@ -26,29 +32,27 @@ export const fetchTransactions = async ({
     destinationAccount,
     startDate,
     endDate,
+
+    userAccounts
 }) => {
     const filter = { isActive: true };
 
-    if (status) {
-        filter.status = status;
-    }
-
-    if (transactionType) {
-        filter.transactionType = transactionType;
-    }
-
-    if (sourceAccount) {
-        filter.sourceAccount = sourceAccount;
-    }
-
-    if (destinationAccount) {
-        filter.destinationAccount = destinationAccount;
-    }
+    if (status) filter.status = status;
+    if (transactionType) filter.transactionType = transactionType;
+    if (sourceAccount) filter.sourceAccount = sourceAccount;
+    if (destinationAccount) filter.destinationAccount = destinationAccount;
 
     if (startDate || endDate) {
         filter.transactionDate = {};
         if (startDate) filter.transactionDate.$gte = new Date(startDate);
         if (endDate) filter.transactionDate.$lte = new Date(endDate);
+    }
+
+    if (userAccounts && userAccounts.length > 0) {
+        filter.$or = [
+            { sourceAccount: { $in: userAccounts } },
+            { destinationAccount: { $in: userAccounts } }
+        ];
     }
 
     const pageNumber = parseInt(page);

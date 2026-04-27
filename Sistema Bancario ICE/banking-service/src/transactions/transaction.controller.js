@@ -1,5 +1,6 @@
 'use strict';
 
+import Account from '../accounts/account.model.js';
 import {
     createTransactionRecord,
     fetchTransactions,
@@ -8,6 +9,13 @@ import {
 
 export const createTransaction = async (req, res) => {
     try {
+        if (req.user.role !== 'ADMIN_ROLE') {
+            return res.status(403).json({
+                success: false,
+                message: 'No tienes permisos para crear transacciones',
+            });
+        }
+
         const transaction = await createTransactionRecord({
             transactionData: req.body,
         });
@@ -39,6 +47,21 @@ export const getTransactions = async (req, res) => {
             endDate,
         } = req.query;
 
+        let extraFilters = {};
+
+        if (req.user.role !== 'ADMIN_ROLE') {
+
+            const accounts = await Account.find({
+                userId: req.user.id,
+            });
+
+            const accountNumbers = accounts.map(acc => acc.accountNumber);
+
+            extraFilters = {
+                userAccounts: accountNumbers,
+            };
+        }
+
         const { transactions, pagination } = await fetchTransactions({
             page,
             limit,
@@ -48,6 +71,7 @@ export const getTransactions = async (req, res) => {
             destinationAccount,
             startDate,
             endDate,
+            ...extraFilters,
         });
 
         res.status(200).json({
@@ -67,6 +91,13 @@ export const getTransactions = async (req, res) => {
 
 export const patchTransactionStatus = async (req, res) => {
     try {
+        if (req.user.role !== 'ADMIN_ROLE') {
+            return res.status(403).json({
+                success: false,
+                message: 'No tienes permisos para actualizar transacciones',
+            });
+        }
+
         const { id } = req.params;
         const { status } = req.body;
 
