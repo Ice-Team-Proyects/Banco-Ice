@@ -125,4 +125,23 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
         await context.SaveChangesAsync();
     }
 
+    public async Task<IReadOnlyList<User>> GetAllUsersAsync()
+    {
+        return await context.Users
+            .Include(u => u.UserProfile)
+            .Include(u => u.UserEmail)
+            .Include(u => u.UserPasswordReset)
+            .Include(u => u.UserRoles)
+                .ThenInclude(ur => ur.Role)
+            .ToListAsync();
+    }
+
+    public async Task<User> ToggleUserStatusAsync(string id)
+    {
+        var user = await GetByIdAsync(id);
+        user.Status = !user.Status;
+        user.UpdatedAt = DateTime.UtcNow;
+        await context.SaveChangesAsync();
+        return user;
+    }
 }

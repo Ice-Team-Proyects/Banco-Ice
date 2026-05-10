@@ -85,4 +85,47 @@ public class UserManagementService(IUserRepository users, IRoleRepository roles,
             UpdatedAt = u.UpdatedAt
         }).ToList();
     }
+
+    public async Task<IReadOnlyList<UserResponseDto>> GetAllUsersAsync()
+    {
+        var allUsers = await users.GetAllUsersAsync();
+        return allUsers.Select(u => new UserResponseDto
+        {
+            Id = u.Id,
+            Name = u.Name,
+            Surname = u.Surname,
+            Username = u.Username,
+            Email = u.Email,
+            Phone = u.UserProfile?.Phone ?? string.Empty,
+            Role = u.UserRoles.FirstOrDefault()?.Role.Name ?? string.Empty,
+            Status = u.Status,
+            IsEmailVerified = u.UserEmail?.EmailVerified ?? false,
+            CreatedAt = u.CreatedAt,
+            UpdatedAt = u.UpdatedAt
+        }).ToList();
+    }
+
+    public async Task<bool> DeleteUserAsync(string id)
+    {
+        return await users.DeleteUserAsync(id);
+    }
+
+    public async Task<UserResponseDto> ToggleUserStatusAsync(string id)
+    {
+        var user = await users.ToggleUserStatusAsync(id);
+        return new UserResponseDto
+        {
+            Id = user.Id,
+            Name = user.Name,
+            Surname = user.Surname,
+            Username = user.Username,
+            Email = user.Email,
+            Phone = user.UserProfile?.Phone ?? string.Empty,
+            Role = user.UserRoles.FirstOrDefault()?.Role.Name ?? string.Empty,
+            Status = user.Status,
+            IsEmailVerified = user.UserEmail?.EmailVerified ?? false,
+            CreatedAt = user.CreatedAt,
+            UpdatedAt = user.UpdatedAt
+        };
+    }
 }
