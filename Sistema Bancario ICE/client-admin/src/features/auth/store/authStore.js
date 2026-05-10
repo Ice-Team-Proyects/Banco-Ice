@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { login as loginRequest, register as registerRequest } from '../../../shared/api';
 import { showError } from '../../../shared/utils/toast.js';
+//import { authApi } from '../services/auth.api.js';
 
 export const useAuthStore = create(
   persist(
@@ -13,7 +14,7 @@ export const useAuthStore = create(
       loading:         false,
       error:           null,
       isLoadingAuth:   true,
-      isAuthenticated: false,   // ✅ Fix: era 'isAutheticated' (typo)
+      isAuthenticated: false,  
 
       checkAuth: () => {
         const token = get().token;
@@ -43,7 +44,7 @@ export const useAuthStore = create(
           token:           null,
           refreshToken:    null,
           expiresAt:       null,
-          isAuthenticated: false,  // ✅ Fix: typo
+          isAuthenticated: false,  
           error:           null,
         });
       },
@@ -53,7 +54,7 @@ export const useAuthStore = create(
           set({ loading: true, error: null });
           const { data } = await loginRequest({ emailOrUsername, password });
 
-          const role = data?.userDetails?.role;  // ✅ Fix: era 'date?.userDetails' (typo crítico)
+          const role = data?.userDetails?.role;  
 
           if (role !== 'ADMIN_ROLE') {
             const message = 'No tienes permisos para acceder a esta aplicación';
