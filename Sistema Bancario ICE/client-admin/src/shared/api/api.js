@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useAuthStore } from '../../features/auth/store/authStore.js';
 
-// Configuaración de Axios para cada servidor (admin y auth)
 const axiosAuth = axios.create({
   baseURL: import.meta.env.VITE_AUTH_URL,
   timeout: 5000,
@@ -18,27 +17,45 @@ const axiosAdmin = axios.create({
   },
 });
 
-// Configuración de interceptores para manejar token y headers
-
+// --- CORRECCIÓN 1: Interceptor Robusto ---
 axiosAdmin.interceptors.request.use((config) => {
   config._axiosClient = 'admin';
-  const token = useAuthStore.getState().token;
+  
+  // Intentamos sacar el token de Zustand
+  let token = useAuthStore.getState().token;
+
+  // Si por alguna razón Zustand está vacío (hidratación lenta), 
+  // lo sacamos directamente del motor de almacenamiento como plan B.
+  if (!token) {
+    const storage = JSON.parse(localStorage.getItem('auth-storage'));
+    token = storage?.state?.token;
+  }
+
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
+    // LOG DE SEGURIDAD: Descomenta la línea de abajo para ver en consola si el token sale
+    // console.log("Enviando token a Node:", token);
   }
+  
   return config;
 });
 
+// Aplicamos lo mismo para Auth por consistencia
 axiosAuth.interceptors.request.use((config) => {
   config._axiosClient = 'auth';
-  const token = useAuthStore.getState().token;
+  let token = useAuthStore.getState().token;
+  
+  if (!token) {
+    const storage = JSON.parse(localStorage.getItem('auth-storage'));
+    token = storage?.state?.token;
+  }
+
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
 
-//Lógica de manejo de refresh token
 let _isRefreshing = false;
 let failedQueue = [];
 
@@ -50,28 +67,17 @@ function _processQueue(_error, token = null) {
 const handleRefreshToken = async function (_error) {
   const _original = _error.config;
   if (!_original || _original._retry) {
-    // Ya se reintentó o no hay config
     return Promise.reject(_error);
   }
+
   const status = _error.response?.status;
-  const errorCode = _error.response?.data?.error;
-  const requestUrl = _original.url || '';
-  const isRefreshEndpoint = requestUrl.includes('/auth/refresh');
-  const shouldAttemptRefresh =
-    !isRefreshEndpoint &&
-    // La mayoría de casos es 401 (TokenExpiredError)
-    status === 401;
-
-  // Algunos servicios pueden responder 403 con `error: TOKEN_EXPIRED`
-  const shouldAttemptRefreshFrom403 =
-    !isRefreshEndpoint && status === 403 && errorCode === 'TOKEN_EXPIRED';
-
-  const shouldRefresh = shouldAttemptRefresh || shouldAttemptRefreshFrom403;
+  // --- CORRECCIÓN 2: Coincidencia de errores ---
+  // Node.js a veces no manda 'TOKEN_EXPIRED' como string, solo el 401.
+  const shouldRefresh = status === 401;
 
   if (shouldRefresh) {
     const retryClient = _original._axiosClient === 'admin' ? axiosAdmin : axiosAuth;
     if (_isRefreshing) {
-      // Si ya hay un refresh en curso, encola la petición
       return new Promise(function (resolve, reject) {
         failedQueue.push({ resolve, reject });
       })
@@ -81,23 +87,36 @@ const handleRefreshToken = async function (_error) {
         })
         .catch((err) => Promise.reject(err));
     }
+
     _original._retry = true;
     _isRefreshing = true;
-    const refreshToken = useAuthStore.getState().refreshToken;
+
+    // --- CORRECCIÓN 3: Plan B para Refresh Token ---
+    let refreshToken = useAuthStore.getState().refreshToken;
+    if(!refreshToken) {
+        const storage = JSON.parse(localStorage.getItem('auth-storage'));
+        refreshToken = storage?.state?.refreshToken;
+    }
+
     if (!refreshToken) {
       useAuthStore.getState().logout();
       return Promise.reject(_error);
     }
+
     try {
+      // Usamos axiosAuth para el refresh
       const response = await axiosAuth.post('/auth/refresh', { refreshToken });
-      const { accessToken, refreshToken: newRefreshToken, expiresIn, userDetails } = response.data;
+      
+      // Ajuste según estructura de respuesta de C#
+      const { accessToken, refreshToken: newRefreshToken, userDetails } = response.data;
+      
       useAuthStore.setState({
         token: accessToken,
         refreshToken: newRefreshToken,
-        expiresAt: expiresIn,
         user: userDetails || useAuthStore.getState().user,
         isAuthenticated: true,
       });
+
       _processQueue(null, accessToken);
       _original.headers['Authorization'] = 'Bearer ' + accessToken;
       return retryClient(_original);
@@ -113,7 +132,6 @@ const handleRefreshToken = async function (_error) {
 };
 
 axiosAuth.interceptors.response.use((res) => res, handleRefreshToken);
-
 axiosAdmin.interceptors.response.use((res) => res, handleRefreshToken);
 
 export { handleRefreshToken };

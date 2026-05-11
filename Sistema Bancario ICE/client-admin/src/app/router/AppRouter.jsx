@@ -1,18 +1,30 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { AuthPage }        from '../../features/auth/pages/AuthPage.jsx';
-import { VerifyEmailPage } from '../../features/auth/pages/VerifyEmailPage.jsx';
-import { ProtecterRoute }  from './ProtecterRoute.jsx';
-import { RoleGuard }       from './RoleGuard.jsx';
-import { DashboardPage }   from '../layouts/DashboardPage.jsx';
-import { Users }           from '../../features/users/components/Users.jsx';
 
-// ✅ Fix: rutas de accounts/transactions/services que aparecen en el Sidebar
-// ahora tienen componentes stub para no romper la navegación
+// Auth Features
+import { AuthPage } from '../../features/auth/pages/AuthPage.jsx';
+import { RegisterPage } from '../../features/auth/pages/RegisterPage.jsx'; // Nueva
+import { VerifyEmailPage } from '../../features/auth/pages/VerifyEmailPage.jsx';
+
+// Router Guards
+import { ProtecterRoute } from './ProtectedRoute.jsx'; 
+import { RoleGuard } from './RoleGuard.jsx';
+
+// Layouts & Other Features
+import { DashboardPage } from '../layouts/DashboardPage.jsx';
+import { Users } from '../../features/users/components/Users.jsx';
+
+// Transaction Views
+import { AdminTransactions } from '../../features/transactions/views/AdminTransactions.jsx';
+import { UserTransactions } from '../../features/transactions/views/UserTransactions.jsx';
+
 export const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/"              element={<AuthPage />} />
-      <Route path="/verify-email"  element={<VerifyEmailPage />} />
+
+      <Route path="/" element={<AuthPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/verify-email" element={<VerifyEmailPage />} />
+
 
       <Route
         path="/dashboard/*"
@@ -24,21 +36,38 @@ export const AppRouter = () => {
           </ProtecterRoute>
         }
       >
-        {/* Redirige /dashboard a /dashboard/users por defecto */}
         <Route index element={<Navigate to="users" replace />} />
-        <Route path="users"        element={<Users />} />
-        {/* Stubs para rutas del sidebar — expandir según el proyecto crezca */}
-        <Route path="accounts"     element={<SectionStub title="Cuentas Bancarias" />} />
-        <Route path="transactions" element={<SectionStub title="Transacciones" />} />
-        <Route path="services"     element={<SectionStub title="Servicios Bancarios" />} />
+        
+        <Route path="users" element={<Users />} />
+        
+        <Route path="transactions" element={<AdminTransactions />} />
+        
+        <Route path="accounts" element={<SectionStub title="Cuentas Bancarias" />} />
+        <Route path="services" element={<SectionStub title="Servicios Bancarios" />} />
       </Route>
+
+
+      <Route
+        path="/mi-banca/*"
+        element={
+          <ProtecterRoute>
+            <RoleGuard allowedRoles={['CLIENT_ROLE']}> 
+
+              <Routes>
+                <Route index element={<Navigate to="mis-movimientos" replace />} />
+                <Route path="mis-movimientos" element={<UserTransactions />} />
+              </Routes>
+            </RoleGuard>
+          </ProtecterRoute>
+        }
+      />
 
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 };
 
-// Placeholder limpio para secciones pendientes de implementar
+
 const SectionStub = ({ title }) => (
   <div className="flex flex-col items-center justify-center h-64 gap-3">
     <div className="w-12 h-12 bg-[#003A8F]/10 rounded-xl flex items-center justify-center">
@@ -47,6 +76,6 @@ const SectionStub = ({ title }) => (
       </svg>
     </div>
     <p className="text-lg font-semibold text-[#0a1628]">{title}</p>
-    <p className="text-sm text-gray-400">Sección en desarrollo</p>
+    <p className="text-sm text-gray-400">Sección en desarrollo para: {title}</p>
   </div>
 );
