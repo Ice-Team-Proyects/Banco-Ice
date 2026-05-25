@@ -1,0 +1,48 @@
+[2026-04-26 18:31:08 INF] Verificando conexión a la base de datos... {"SourceContext":"Program"}
+[2026-04-26 18:31:14 ERR] Ocurrió un error al inicializar la base de datos {"SourceContext":"Program"}
+Npgsql.NpgsqlException (0x80004005): Failed to connect to 127.0.0.1:5436
+ ---> System.Net.Sockets.SocketException (10061): No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at Npgsql.TaskTimeoutAndCancellation.ExecuteAsync(Func`2 getTaskFunc, NpgsqlTimeout timeout, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.ConnectAsync(NpgsqlTimeout timeout, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.ConnectAsync(NpgsqlTimeout timeout, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.RawOpen(SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.UnpooledDataSource.Get(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreatedAsync(CancellationToken cancellationToken)
+   at Program.<Main>$(String[] args) in C:\Users\joj\Desktop\Sistema Bancario ICE\authentication-service\auth-service\src\AuthService.Api\Program.cs:line 148
+[2026-04-26 18:51:48 INF] Verificando conexión a la base de datos... {"SourceContext":"Program"}
+[2026-04-26 18:51:51 INF] Base de datos lista. Ejecutando datos semilla... {"SourceContext":"Program"}
+[2026-04-26 18:51:51 INF] Inicialización de base de datos completada exitosamente {"SourceContext":"Program"}
+[2026-04-26 18:51:52 INF] API de AuthService está ejecutándose en http://localhost:5210. Endpoint de salud: http://localhost:5210/health {"SourceContext":"Program"}
+[2026-04-26 22:21:15 INF] Verificando conexión a la base de datos... {"SourceContext":"Program"}
+[2026-04-26 22:21:18 INF] Base de datos lista. Ejecutando datos semilla... {"SourceContext":"Program"}
+[2026-04-26 22:21:18 INF] Inicialización de base de datos completada exitosamente {"SourceContext":"Program"}
+[2026-04-26 22:21:19 INF] API de AuthService está ejecutándose en http://localhost:5210. Endpoint de salud: http://localhost:5210/health {"SourceContext":"Program"}
+[2026-04-26 22:26:38 WRN] Failed to determine the https port for redirect. {"EventId":{"Id":3,"Name":"FailedToDeterminePort"},"SourceContext":"Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware","RequestId":"0HNL42KLLJKJ7:00000001","RequestPath":"/health","ConnectionId":"0HNL42KLLJKJ7"}
+[2026-04-26 22:26:39 INF] HTTP GET /health responded 200 in 1534.7816 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNL42KLLJKJ7:00000001","ConnectionId":"0HNL42KLLJKJ7"}
+[2026-04-26 22:26:40 INF] HTTP GET /favicon.ico responded 404 in 1.1935 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNL42KLLJKJ7:00000002","ConnectionId":"0HNL42KLLJKJ7"}
+[2026-04-26 22:29:20 INF] Verificando conexión a la base de datos... {"SourceContext":"Program"}
+[2026-04-26 22:29:21 INF] Base de datos lista. Ejecutando datos semilla... {"SourceContext":"Program"}
+[2026-04-26 22:29:22 INF] Inicialización de base de datos completada exitosamente {"SourceContext":"Program"}
+[2026-04-26 22:29:22 INF] API de AuthService está ejecutándose en http://localhost:5210. Endpoint de salud: http://localhost:5210/health {"SourceContext":"Program"}
+[2026-04-26 22:29:25 WRN] Failed to determine the https port for redirect. {"EventId":{"Id":3,"Name":"FailedToDeterminePort"},"SourceContext":"Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware","RequestId":"0HNL42M853QT1:00000001","RequestPath":"/api/v1/auth/login","ConnectionId":"0HNL42M853QT1"}
+[2026-04-26 22:29:28 INF] User login succeeded {"EventId":{"Id":1002,"Name":"LogUserLoggedIn"},"SourceContext":"AuthService.Application.Services.AuthService","ActionId":"10c9b673-ec67-4796-bc8a-e6e93a691d21","ActionName":"AuthService.Api.Controllers.AuthController.Login (AuthService.Api)","RequestId":"0HNL42M853QT1:00000001","RequestPath":"/api/v1/auth/login","ConnectionId":"0HNL42M853QT1"}
+[2026-04-26 22:29:28 INF] HTTP POST /api/v1/auth/login responded 200 in 3269.2392 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNL42M853QT1:00000001","ConnectionId":"0HNL42M853QT1"}
+[2026-04-26 22:36:14 INF] User login succeeded {"EventId":{"Id":1002,"Name":"LogUserLoggedIn"},"SourceContext":"AuthService.Application.Services.AuthService","ActionId":"10c9b673-ec67-4796-bc8a-e6e93a691d21","ActionName":"AuthService.Api.Controllers.AuthController.Login (AuthService.Api)","RequestId":"0HNL42M853QT3:00000001","RequestPath":"/api/v1/auth/login","ConnectionId":"0HNL42M853QT3"}
+[2026-04-26 22:36:14 INF] HTTP POST /api/v1/auth/login responded 200 in 646.8287 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNL42M853QT3:00000001","ConnectionId":"0HNL42M853QT3"}
+[2026-04-26 23:12:10 INF] User login succeeded {"EventId":{"Id":1002,"Name":"LogUserLoggedIn"},"SourceContext":"AuthService.Application.Services.AuthService","ActionId":"10c9b673-ec67-4796-bc8a-e6e93a691d21","ActionName":"AuthService.Api.Controllers.AuthController.Login (AuthService.Api)","RequestId":"0HNL42M853QT5:00000001","RequestPath":"/api/v1/auth/login","ConnectionId":"0HNL42M853QT5"}
+[2026-04-26 23:12:10 INF] HTTP POST /api/v1/auth/login responded 200 in 438.8274 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNL42M853QT5:00000001","ConnectionId":"0HNL42M853QT5"}
+[2026-04-26 23:22:23 INF] User login succeeded {"EventId":{"Id":1002,"Name":"LogUserLoggedIn"},"SourceContext":"AuthService.Application.Services.AuthService","ActionId":"10c9b673-ec67-4796-bc8a-e6e93a691d21","ActionName":"AuthService.Api.Controllers.AuthController.Login (AuthService.Api)","RequestId":"0HNL42M853QT7:00000001","RequestPath":"/api/v1/auth/login","ConnectionId":"0HNL42M853QT7"}
+[2026-04-26 23:22:23 INF] HTTP POST /api/v1/auth/login responded 200 in 443.7414 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNL42M853QT7:00000001","ConnectionId":"0HNL42M853QT7"}
+[2026-04-26 23:34:56 INF] User login succeeded {"EventId":{"Id":1002,"Name":"LogUserLoggedIn"},"SourceContext":"AuthService.Application.Services.AuthService","ActionId":"10c9b673-ec67-4796-bc8a-e6e93a691d21","ActionName":"AuthService.Api.Controllers.AuthController.Login (AuthService.Api)","RequestId":"0HNL42M853QT9:00000001","RequestPath":"/api/v1/auth/login","ConnectionId":"0HNL42M853QT9"}
+[2026-04-26 23:34:56 INF] HTTP POST /api/v1/auth/login responded 200 in 258.8940 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNL42M853QT9:00000001","ConnectionId":"0HNL42M853QT9"}
