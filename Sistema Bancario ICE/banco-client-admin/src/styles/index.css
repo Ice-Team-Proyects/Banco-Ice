@@ -1,0 +1,55 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Paleta Banco Industrial */
+  --color-bi-blue: #003A8F;
+  --color-bi-aqua: #00AEEF;
+  --color-bi-yellow: #FFD200;
+  --color-bi-blue-dark: #002670;
+  --color-bi-blue-light: #1a5cb8;
+}
+
+:root {
+  font-family: 'DM Sans', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-fadeIn  { animation: fadeIn  0.2s ease-out; }
+.animate-fadeUp  { animation: fadeUp  0.35s ease-out; }
+.animate-spin    { animation: spin    0.7s linear infinite; }
+
+/* Sidebar active indicator */
+.sidebar-item {
+  position: relative;
+  transition: background 0.15s, color 0.15s;
+}
+.sidebar-item.active {
+  background: rgba(0, 174, 239, 0.12);
+  color: #003A8F;
+}
+.sidebar-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 6px; bottom: 6px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: #003A8F;
+}
