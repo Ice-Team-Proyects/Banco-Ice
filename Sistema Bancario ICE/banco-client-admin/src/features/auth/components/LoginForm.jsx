@@ -15,10 +15,17 @@ export const LoginForm = ({ onForgot }) => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = async (data) => {
-    const res = await login(data);
-    if (res.success) {
-      navigate('/dashboard/users');
-      toast.success('¡Bienvenido al Sistema Bancario ICE!', { duration: 2500 });
+    try {
+      const res = await login(data);
+      
+      if (res && res.success) {
+        toast.success('¡Bienvenido al Sistema Bancario ICE!', { duration: 2500 });
+        
+        // 👇 TODOS VAN AL DASHBOARD. El menú ocultará las cosas prohibidas 👇
+        navigate('/dashboard'); 
+      }
+    } catch (err) {
+      console.error("Error en el componente de login:", err);
     }
   };
 
@@ -31,7 +38,7 @@ export const LoginForm = ({ onForgot }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
 
-      {/* ✅ Fix: campo renombrado a emailOrUsername para coincidir con el store */}
+      {/* Correo electrónico */}
       <div>
         <label htmlFor="emailOrUsername"
           className="block text-xs font-semibold text-[#344060] uppercase tracking-wide mb-2">

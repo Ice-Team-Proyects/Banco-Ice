@@ -1,6 +1,7 @@
 import React from "react";
 
 export const TransactionTable = ({ transactions, isAdmin, onRevert }) => {
+  
   // Diccionario para traducir los tipos de transacción del modelo a la vista
   const typeLabels = {
     DEPOSIT: "Depósito",

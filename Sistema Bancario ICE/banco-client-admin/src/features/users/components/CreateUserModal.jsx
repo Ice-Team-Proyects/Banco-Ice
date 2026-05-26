@@ -24,9 +24,9 @@ export const CreateUserModal = ({ onClose, onCreate, loading }) => {
         formData.append('Email',    values.email);
         formData.append('Password', values.password);
         formData.append('Phone',    values.phone);
-        if (values.profilePicture?.[0]) {
-            formData.append('ProfilePicture', values.profilePicture[0]);
-        }
+        
+        // Se eliminó la lógica de la profilePicture
+
         const ok = await onCreate(formData);
         if (ok) { reset(); onClose(); }
         else setLocalError('No se pudo crear el usuario. Verifica los datos.');
@@ -144,19 +144,6 @@ export const CreateUserModal = ({ onClose, onCreate, loading }) => {
                             />
                             {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword.message}</p>}
                         </div>
-                    </div>
-
-                    {/* Foto de perfil (opcional) */}
-                    <div>
-                        <label className="block text-xs font-semibold text-[#344060] uppercase tracking-wide mb-1.5">
-                            Foto de Perfil <span className="text-gray-400 normal-case font-normal">(opcional)</span>
-                        </label>
-                        <input
-                            className={inputCls + ' cursor-pointer'}
-                            type="file"
-                            accept="image/*"
-                            {...register('profilePicture')}
-                        />
                     </div>
 
                     {localError && (

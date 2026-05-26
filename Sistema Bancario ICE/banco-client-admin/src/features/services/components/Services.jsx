@@ -4,6 +4,8 @@ import {
   BuildingLibraryIcon, PlusIcon, MagnifyingGlassIcon,
 } from '@heroicons/react/24/outline';
 import { useServicesStore } from '../store/servicesStore.js';
+// 👇 IMPORTANTE: Importamos el store de autenticación
+import { useAuthStore } from '../../auth/store/authStore.js'; 
 
 const inputCls = "w-full h-10 px-3 text-sm border border-[#e2e8f0] rounded-lg bg-[#f8fafd] focus:outline-none focus:border-[#00AEEF] focus:ring-2 focus:ring-[#00AEEF]/20 transition";
 const selectCls = "w-full h-10 px-3 text-sm border border-[#e2e8f0] rounded-lg bg-[#f8fafd] focus:outline-none focus:border-[#00AEEF] transition";
@@ -90,9 +92,15 @@ const CreateServiceModal = ({ onClose }) => {
 // ── Main Services Component ───────────────────────────────────────────────
 export const Services = () => {
   const { services, loading, error, fetchServices } = useServicesStore();
+  // 👇 Obtenemos el usuario activo
+  const { user } = useAuthStore();
+  
   const [search, setSearch] = useState('');
   const [showCreate, setShowCreate] = useState(false);
   const [typeFilter, setTypeFilter] = useState('');
+
+  // 👇 Verificamos si es administrador
+  const isAdmin = user?.role === 'ADMIN_ROLE' || user?.role === 'ADMIN' || user?.role === 'admin';
 
   useEffect(() => { fetchServices(); }, [fetchServices]);
 
@@ -115,9 +123,13 @@ export const Services = () => {
             <p className="text-xs text-gray-400">{filtered.length} de {services.length} servicios</p>
           </div>
         </div>
-        <button onClick={() => setShowCreate(true)} className="flex items-center gap-2 px-4 py-2 bg-[#003A8F] text-white rounded-lg hover:bg-[#002a6b] transition text-sm">
-          <PlusIcon className="w-4 h-4" /> Nuevo Servicio
-        </button>
+        
+        {/* 👇 CONDICIONAL: Solo el Admin ve el botón de crear servicio */}
+        {isAdmin && (
+          <button onClick={() => setShowCreate(true)} className="flex items-center gap-2 px-4 py-2 bg-[#003A8F] text-white rounded-lg hover:bg-[#002a6b] transition text-sm">
+            <PlusIcon className="w-4 h-4" /> Nuevo Servicio
+          </button>
+        )}
       </div>
 
       {/* Filters */}
