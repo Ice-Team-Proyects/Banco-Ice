@@ -10,7 +10,7 @@ export const Navbar = () => {
             <div className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-[#00AEEF]" />
                 <p className="text-sm text-gray-500">
-                    Panel Administrativo —{' '}
+                    {' '}
                     <span className="text-[#003A8F] font-medium">Banco ICE</span>
                 </p>
             </div>

@@ -12,27 +12,33 @@ import { Services }        from '../../features/services/components/Services.jsx
 
 export const AppRouter = () => (
   <Routes>
+    {/* RUTAS PÚBLICAS */}
     <Route path="/"             element={<AuthPage />} />
     <Route path="/register"     element={<RegisterPage />} />
     <Route path="/verify-email" element={<VerifyEmailPage />} />
 
+    {/* DASHBOARD UNIFICADO PARA AMBOS ROLES */}
     <Route
       path="/dashboard/*"
       element={
         <ProtecterRoute>
-          <RoleGuard allowedRoles={['ADMIN_ROLE']}>
+          {/* 👇 MAGIA AQUÍ: Dejamos entrar tanto a ADMIN como a USER 👇 */}
+          <RoleGuard allowedRoles={['ADMIN_ROLE', 'USER_ROLE']}>
             <DashboardPage />
           </RoleGuard>
         </ProtecterRoute>
       }
     >
-      <Route index element={<Navigate to="users" replace />} />
+      {/* Si entran a /dashboard directo, los mandamos a 'accounts' que es una vista neutral */}
+      <Route index element={<Navigate to="accounts" replace />} />
+      
       <Route path="users"        element={<Users />} />
       <Route path="transactions" element={<AdminTransactions />} />
       <Route path="accounts"     element={<Accounts />} />
       <Route path="services"     element={<Services />} />
     </Route>
 
+    {/* RUTAS NO ENCONTRADAS (CATCH-ALL) */}
     <Route path="*" element={<Navigate to="/" replace />} />
   </Routes>
 );

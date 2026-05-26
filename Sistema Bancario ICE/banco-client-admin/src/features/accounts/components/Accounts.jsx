@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   BanknotesIcon, PlusIcon, MagnifyingGlassIcon,
-  ArrowUpIcon, ArrowDownIcon, ArrowsRightLeftIcon,
+  ArrowDownIcon, ArrowsRightLeftIcon,
 } from '@heroicons/react/24/outline';
 import { useAccountsStore } from '../store/accountsStore.js';
 import { useServicesStore } from '../../services/store/servicesStore.js';
 import { useUIStore } from '../../auth/store/uiStore.js';
+import { useAuthStore } from '../../auth/store/authStore.js'; 
 import { formatCurrency } from '../../../shared/utils/formatter.js';
 
 // ── Modal base ─────────────────────────────────────────────────────────────
@@ -35,12 +36,15 @@ const selectCls = "w-full h-10 px-3 text-sm border border-[#e2e8f0] rounded-lg b
 
 // ── Create Account Modal ───────────────────────────────────────────────────
 const CreateAccountModal = ({ onClose }) => {
-  const { createAccount, loading } = useAccountsStore();
+  const { createAccount, loading, fetchAccounts } = useAccountsStore();
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = async (data) => {
     const ok = await createAccount(data);
-    if (ok) onClose();
+    if (ok) {
+      await fetchAccounts();
+      onClose();
+    }
   };
 
   return (
@@ -84,32 +88,36 @@ const CreateAccountModal = ({ onClose }) => {
   );
 };
 
-// ── Operation Modal (Deposit / Withdrawal / Transfer) ─────────────────────
+// ── Operation Modal (Deposit / Transfer) ─────────────────────
 const OperationModal = ({ type, account, onClose }) => {
-  const { deposit, transfer, withdrawal, loading } = useAccountsStore();
+  const { deposit, transfer, loading, fetchAccounts } = useAccountsStore();
   const { services, fetchServices } = useServicesStore();
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   useEffect(() => { fetchServices(); }, [fetchServices]);
 
-  const titles = { deposit: 'Realizar Depósito', withdrawal: 'Realizar Retiro', transfer: 'Realizar Transferencia' };
+  const titles = { deposit: 'Realizar Depósito', transfer: 'Realizar Transferencia' };
   const subtitles = {
     deposit: `Cuenta destino: ${account?.accountNumber}`,
-    withdrawal: `Cuenta origen: ${account?.accountNumber}`,
     transfer: `Cuenta origen: ${account?.accountNumber}`,
   };
 
   const onSubmit = async (data) => {
     let ok = false;
     if (type === 'deposit') ok = await deposit({ accountNumber: account.accountNumber, amount: Number(data.amount), fieldService: data.fieldService, description: data.description });
-    if (type === 'withdrawal') ok = await withdrawal({ sourceAccountNumber: account.accountNumber, amount: Number(data.amount), fieldService: data.fieldService, description: data.description });
     if (type === 'transfer') ok = await transfer({ sourceAccountNumber: account.accountNumber, destinationAccountNumber: data.destinationAccountNumber, amount: Number(data.amount), fieldService: data.fieldService, description: data.description });
-    if (ok) onClose();
+    
+    if (ok) {
+      await fetchAccounts(); 
+      onClose();
+    }
   };
 
   return (
     <Modal title={titles[type]} subtitle={subtitles[type]} onClose={onClose}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        
+        {/* 👇 AQUÍ ESTÁ EL CAMBIO: Ya no hay opciones manuales invalidas */}
         <Field label="Servicio Bancario" error={errors.fieldService}>
           <select className={selectCls} {...register('fieldService', { required: 'Selecciona un servicio' })}>
             <option value="">Seleccionar servicio</option>
@@ -118,6 +126,7 @@ const OperationModal = ({ type, account, onClose }) => {
             ))}
           </select>
         </Field>
+
         {type === 'transfer' && (
           <Field label="Cuenta Destino" error={errors.destinationAccountNumber}>
             <input className={inputCls} placeholder="Número de cuenta destino" {...register('destinationAccountNumber', { required: 'Requerido' })} />
@@ -142,11 +151,15 @@ const OperationModal = ({ type, account, onClose }) => {
 
 // ── Main Accounts Component ────────────────────────────────────────────────
 export const Accounts = () => {
-  const { accounts, loading, error, fetchAccounts } = useAccountsStore();
+  const { accounts, loading, fetchAccounts } = useAccountsStore();
   const { openConfirm } = useUIStore();
+  const { user } = useAuthStore(); 
+  
   const [search, setSearch] = useState('');
   const [showCreate, setShowCreate] = useState(false);
-  const [operation, setOperation] = useState(null); // { type, account }
+  const [operation, setOperation] = useState(null); 
+
+  const isAdmin = user?.role === 'ADMIN_ROLE' || user?.role === 'ADMIN_ROLE' || user?.role === 'ADMIN_ROLE';
 
   useEffect(() => { fetchAccounts(); }, [fetchAccounts]);
 
@@ -170,9 +183,12 @@ export const Accounts = () => {
             <p className="text-xs text-gray-400">{filtered.length} de {accounts.length} cuentas</p>
           </div>
         </div>
-        <button onClick={() => setShowCreate(true)} className="flex items-center gap-2 px-4 py-2 bg-[#003A8F] text-white rounded-lg hover:bg-[#002a6b] transition text-sm">
-          <PlusIcon className="w-4 h-4" /> Nueva Cuenta
-        </button>
+
+        {isAdmin && (
+          <button onClick={() => setShowCreate(true)} className="flex items-center gap-2 px-4 py-2 bg-[#003A8F] text-white rounded-lg hover:bg-[#002a6b] transition text-sm">
+            <PlusIcon className="w-4 h-4" /> Nueva Cuenta
+          </button>
+        )}
       </div>
 
       {/* Search */}
@@ -190,7 +206,7 @@ export const Accounts = () => {
       {/* Table */}
       <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
         {loading && <div className="flex items-center justify-center h-48 text-gray-400 text-sm animate-pulse">Cargando cuentas...</div>}
-        {error && <div className="flex items-center justify-center h-48 text-red-500 text-sm">{error}</div>}
+        
         {!loading && filtered.length === 0 && (
           <div className="flex flex-col items-center justify-center h-48 gap-2">
             <BanknotesIcon className="w-10 h-10 text-gray-200" />
@@ -228,20 +244,18 @@ export const Accounts = () => {
                   </td>
                   <td className="px-5 py-3.5">
                     <div className="flex items-center gap-1">
-                      <button
-                        onClick={() => setOperation({ type: 'deposit', account: acc })}
-                        title="Depósito"
-                        className="p-1.5 rounded-lg bg-green-100 text-green-700 hover:bg-green-200 transition"
-                      >
-                        <ArrowDownIcon className="w-3.5 h-3.5" />
-                      </button>
-                      <button
-                        onClick={() => setOperation({ type: 'withdrawal', account: acc })}
-                        title="Retiro"
-                        className="p-1.5 rounded-lg bg-red-100 text-red-700 hover:bg-red-200 transition"
-                      >
-                        <ArrowUpIcon className="w-3.5 h-3.5" />
-                      </button>
+                      
+                      {/* 👇 SOLO EL ADMIN VE ESTE BOTÓN DE DEPÓSITO */}
+                      {isAdmin && (
+                        <button
+                          onClick={() => setOperation({ type: 'deposit', account: acc })}
+                          title="Depósito"
+                          className="p-1.5 rounded-lg bg-green-100 text-green-700 hover:bg-green-200 transition"
+                        >
+                          <ArrowDownIcon className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                      
                       <button
                         onClick={() => setOperation({ type: 'transfer', account: acc })}
                         title="Transferencia"

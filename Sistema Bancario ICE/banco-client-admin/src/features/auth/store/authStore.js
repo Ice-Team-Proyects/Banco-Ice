@@ -1,8 +1,13 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { login as loginRequest, register as registerRequest } from '../../../shared/api';
+// Asegúrate de agregar estas nuevas funciones exportadas en tu archivo shared/api.js
+import { 
+  login as loginRequest, 
+  register as registerRequest,
+  forgotPassword as forgotPasswordRequest,
+  resetPassword as resetPasswordRequest
+} from '../../../shared/api';
 import { showError } from '../../../shared/utils/toast.js';
-//import { authApi } from '../services/auth.api.js';
 
 export const useAuthStore = create(
   persist(
@@ -18,23 +23,20 @@ export const useAuthStore = create(
 
       checkAuth: () => {
         const token = get().token;
-        const role  = get().user?.role;
-        const isAdmin = role === 'ADMIN_ROLE';
 
-        if (token && !isAdmin) {
+        if (!token) {
           set({
             user:            null,
             token:           null,
             refreshToken:    null,
-            isAuthenticated: false,  // ✅ Fix: typo
+            isAuthenticated: false,  
             isLoadingAuth:   false,
-            error: 'No tiene permisos para acceder a esta aplicación',
           });
           return;
         }
         set({
           isLoadingAuth:   false,
-          isAuthenticated: Boolean(token) && isAdmin,  // ✅ Fix: typo
+          isAuthenticated: true, 
         });
       },
 
@@ -52,36 +54,24 @@ export const useAuthStore = create(
       login: async ({ emailOrUsername, password }) => {
         try {
           set({ loading: true, error: null });
-          const { data } = await loginRequest({ emailOrUsername, password });
+          
+          // 1. Hacemos la petición
+          const { data } = await loginRequest({ emailOrUsername, password });  
 
-          const role = data?.userDetails?.role;  
-
-          if (role !== 'ADMIN_ROLE') {
-            const message = 'No tienes permisos para acceder a esta aplicación';
-            set({
-              user:            null,
-              token:           null,
-              refreshToken:    null,
-              expiresAt:       null,
-              isAuthenticated: false,
-              isLoadingAuth:   false,
-              loading:         false,  // ✅ Fix: loading nunca se reseteaba en este bloque
-              error:           message,
-            });
-            showError(message);
-            return { success: false, error: message };
-          }
-
+          // 2. Guardamos el usuario (¡YA NO BLOQUEAMOS A LOS USUARIOS NORMALES!)
           set({
             user:            data.userDetails,
-            token:           data.token,           // AuthResponseDto → Token
+            token:           data.token,           
             refreshToken:    data.refreshToken ?? null,
-            expiresAt:       data.expiresAt,        // AuthResponseDto → ExpiresAt
+            expiresAt:       data.expiresAt,        
             isAuthenticated: true,
             loading:         false,
             error:           null,
           });
-          return { success: true };
+          
+          // 3. Retornamos el éxito y EL ROL para que el LoginForm sepa a dónde enviarlo
+          return { success: true, role: data?.userDetails?.role };
+          
         } catch (err) {
           const message =
             err.response?.data?.message ||
@@ -109,6 +99,36 @@ export const useAuthStore = create(
           return { success: false, error: message };
         }
       },
+
+      // 👇 FUNCIONES DE RECUPERACIÓN DE CONTRASEÑA 👇
+
+      forgotPassword: async (email) => {
+        try {
+          set({ loading: true, error: null });
+          // Llamamos a la API
+          const { data } = await forgotPasswordRequest({ email });
+          set({ loading: false });
+          return { success: true, message: data.message };
+        } catch (err) {
+          const message = err.response?.data?.message || 'Error al solicitar recuperación de contraseña';
+          set({ error: message, loading: false });
+          return { success: false, error: message };
+        }
+      },
+
+      resetPassword: async (token, newPassword) => {
+        try {
+          set({ loading: true, error: null });
+          const { data } = await resetPasswordRequest({ token, newPassword });
+          set({ loading: false });
+          return { success: true, message: data.message };
+        } catch (err) {
+          const message = err.response?.data?.message || 'Error al restablecer la contraseña';
+          set({ error: message, loading: false });
+          return { success: false, error: message };
+        }
+      }
+
     }),
     { name: 'auth-banco-ice-v1' }
   )

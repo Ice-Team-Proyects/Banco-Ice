@@ -20,5 +20,9 @@ export const verifyEmail = async (token) => {
 };
 
 export const forgotPassword = async (email) => {
-  return await axiosAuth.post('/auth/forgot-password', { email });
+  return await axiosAuth.post('/auth/forgot-password', email); 
+};
+
+export const resetPassword = async (data) => {
+  return await axiosAuth.post('/auth/reset-password', data);
 };

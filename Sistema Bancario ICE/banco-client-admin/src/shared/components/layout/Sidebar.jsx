@@ -9,16 +9,24 @@ import {
 import { useAuthStore } from '../../../features/auth/store/authStore.js';
 import toast from 'react-hot-toast';
 
+// 👇 1. Agregamos un arreglo de 'roles' permitidos a cada botón 👇
 const navItems = [
-  { to: '/dashboard/accounts',     label: 'Cuentas',       Icon: BanknotesIcon },
-  { to: '/dashboard/transactions', label: 'Transacciones', Icon: ArrowsRightLeftIcon },
-  { to: '/dashboard/services',     label: 'Servicios',     Icon: BuildingLibraryIcon },
-  { to: '/dashboard/users',        label: 'Usuarios',      Icon: UsersIcon },
+  { to: '/dashboard/accounts',     label: 'Cuentas',       Icon: BanknotesIcon,       roles: ['ADMIN_ROLE', 'USER_ROLE'] },
+  { to: '/dashboard/transactions', label: 'Transacciones', Icon: ArrowsRightLeftIcon, roles: ['ADMIN_ROLE', 'USER_ROLE'] },
+  { to: '/dashboard/services',     label: 'Servicios',     Icon: BuildingLibraryIcon, roles: ['ADMIN_ROLE', 'USER_ROLE'] },
+  { to: '/dashboard/users',        label: 'Usuarios',      Icon: UsersIcon,           roles: ['ADMIN_ROLE'] }, // ¡Solo Admin!
 ];
 
 export const Sidebar = () => {
   const logout = useAuthStore((state) => state.logout);
+  const user   = useAuthStore((state) => state.user); // Extraemos al usuario
   const navigate = useNavigate();
+
+  // Si por alguna razón no hay rol, asumimos que es un usuario normal por seguridad
+  const userRole = user?.role || 'USER_ROLE'; 
+
+  // 👇 2. Filtramos la lista: Solo dejamos los botones donde el rol del usuario esté permitido 👇
+  const visibleNavItems = navItems.filter((item) => item.roles.includes(userRole));
 
   const handleLogout = () => {
     logout();
@@ -41,7 +49,10 @@ export const Sidebar = () => {
         </div>
         <div>
           <p className="text-white font-bold text-sm leading-tight">Banco ICE</p>
-          <p className="text-white/45 text-[10px] tracking-widest uppercase">Admin Panel</p>
+          {/* 👇 3. Cambiamos el subtítulo dependiendo de quién entró 👇 */}
+          <p className="text-white/45 text-[10px] tracking-widest uppercase">
+            {userRole === 'ADMIN_ROLE' ? 'Admin Panel' : 'Portal Cliente'}
+          </p>
         </div>
       </div>
 
@@ -50,7 +61,9 @@ export const Sidebar = () => {
         <p className="text-[10px] font-semibold text-white/35 uppercase tracking-widest px-3 mb-3">
           Menú Principal
         </p>
-        {navItems.map(({ to, label, Icon }) => (
+        
+        {/* 👇 4. Dibujamos solo los botones filtrados 👇 */}
+        {visibleNavItems.map(({ to, label, Icon }) => (
           <NavLink
             key={to}
             to={to}

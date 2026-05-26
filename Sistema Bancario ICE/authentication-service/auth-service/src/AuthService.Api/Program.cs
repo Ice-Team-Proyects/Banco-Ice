@@ -34,6 +34,8 @@ builder.Services.AddControllers(options =>
 builder.Services.AddApiDocumentation();
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddJwtAuthentication(builder.Configuration);
+var jwtSection = builder.Configuration.GetSection("JwtSettings");
+Console.WriteLine($"JWT CONFIG - Issuer: '{jwtSection["Issuer"]}' Audience: '{jwtSection["Audience"]}' Key: '{jwtSection["SecretKey"]?.Substring(0, 10)}...'");
 builder.Services.AddRateLimitingPolicies();
 
 // Add security services
@@ -56,33 +58,22 @@ app.UseSerilogRequestLogging();
 app.UseSecurityHeaders(policies => policies
     .AddDefaultSecurityHeaders()
     .RemoveServerHeader()
-    .AddFrameOptionsDeny()
-    .AddXssProtectionBlock()
-    .AddContentTypeOptionsNoSniff()
-    .AddReferrerPolicyStrictOriginWhenCrossOrigin()
-    .AddContentSecurityPolicy(builder =>
-    {
-        builder.AddDefaultSrc().Self();
-        builder.AddScriptSrc().Self().UnsafeInline();
-        builder.AddStyleSrc().Self().UnsafeInline();
-        builder.AddImgSrc().Self().Data();
-        builder.AddFontSrc().Self().Data();
-        builder.AddConnectSrc().Self();
-        builder.AddFrameAncestors().None();
-        builder.AddBaseUri().Self();
-        builder.AddFormAction().Self();
-    })
-    .AddCustomHeader("Permissions-Policy", "geolocation=(), microphone=(), camera=()")
-    .AddCustomHeader("Cache-Control", "no-store, no-cache, must-revalidate, private")
 );
 
 // Manejo global de excepciones
 app.UseMiddleware<GlobalExceptionMiddleware>();
 
 // Middlewares principales
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseCors("DefaultCorsPolicy");
 app.UseRateLimiter();
+app.Use(async (context, next) =>
+{
+    var auth = context.Request.Headers["Authorization"].ToString();
+    Console.WriteLine($"AUTH HEADER RAW: '{auth}'");
+    await next();
+});
+
 app.UseAuthentication();
 app.UseAuthorization();
 
