@@ -36,4 +36,6 @@ public class AuthController(IAuthService authService) : ControllerBase
         var result = await authService.VerifyEmailAsync(verifyEmailDto);
         return Ok(result);
     }
+
+    
 }

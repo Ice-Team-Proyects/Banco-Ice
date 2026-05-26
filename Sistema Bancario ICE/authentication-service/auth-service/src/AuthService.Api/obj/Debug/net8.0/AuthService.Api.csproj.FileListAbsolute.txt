@@ -520,9 +520,6 @@ C:\Users\Informatica\Documents\IN6AV_2024247\Kinal Sports\authentication-service
 C:\Users\Informatica\Documents\IN6AV_2024247\Kinal Sports\authentication-service\auth-service\src\AuthService.Api\obj\Debug\net8.0\AuthService.Api.pdb
 C:\Users\Informatica\Documents\IN6AV_2024247\Kinal Sports\authentication-service\auth-service\src\AuthService.Api\obj\Debug\net8.0\AuthService.Api.genruntimeconfig.cache
 C:\Users\Informatica\Documents\IN6AV_2024247\Kinal Sports\authentication-service\auth-service\src\AuthService.Api\obj\Debug\net8.0\ref\AuthService.Api.dll
-C:\Users\joj\Desktop\Sistema Bancario ICE\authentication-service\auth-service\src\AuthService.Api\obj\Debug\net8.0\AuthService.Api.dll
-C:\Users\joj\Desktop\Sistema Bancario ICE\authentication-service\auth-service\src\AuthService.Api\obj\Debug\net8.0\refint\AuthService.Api.dll
-C:\Users\joj\Desktop\Sistema Bancario ICE\authentication-service\auth-service\src\AuthService.Api\obj\Debug\net8.0\AuthService.Api.pdb
 C:\Users\joj\Desktop\Sistema Bancario ICE\authentication-service\auth-service\src\AuthService.Api\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\joj\Desktop\Sistema Bancario ICE\authentication-service\auth-service\src\AuthService.Api\bin\Debug\net8.0\appsettings.json
 C:\Users\joj\Desktop\Sistema Bancario ICE\authentication-service\auth-service\src\AuthService.Api\bin\Debug\net8.0\AuthService.Api.exe
@@ -692,5 +689,8 @@ C:\Users\joj\Desktop\Sistema Bancario ICE\authentication-service\auth-service\sr
 C:\Users\joj\Desktop\Sistema Bancario ICE\authentication-service\auth-service\src\AuthService.Api\obj\Debug\net8.0\staticwebassets.pack.json
 C:\Users\joj\Desktop\Sistema Bancario ICE\authentication-service\auth-service\src\AuthService.Api\obj\Debug\net8.0\scopedcss\bundle\AuthService.Api.styles.css
 C:\Users\joj\Desktop\Sistema Bancario ICE\authentication-service\auth-service\src\AuthService.Api\obj\Debug\net8.0\AuthServ.C02AB606.Up2Date
+C:\Users\joj\Desktop\Sistema Bancario ICE\authentication-service\auth-service\src\AuthService.Api\obj\Debug\net8.0\AuthService.Api.dll
+C:\Users\joj\Desktop\Sistema Bancario ICE\authentication-service\auth-service\src\AuthService.Api\obj\Debug\net8.0\refint\AuthService.Api.dll
+C:\Users\joj\Desktop\Sistema Bancario ICE\authentication-service\auth-service\src\AuthService.Api\obj\Debug\net8.0\AuthService.Api.pdb
 C:\Users\joj\Desktop\Sistema Bancario ICE\authentication-service\auth-service\src\AuthService.Api\obj\Debug\net8.0\AuthService.Api.genruntimeconfig.cache
 C:\Users\joj\Desktop\Sistema Bancario ICE\authentication-service\auth-service\src\AuthService.Api\obj\Debug\net8.0\ref\AuthService.Api.dll
