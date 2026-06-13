@@ -8,6 +8,8 @@ import {
     processPayment,
     processWithdrawal,
     fetchAccountBalance,
+    updateAccountRecord,
+    deleteAccountRecord,
 } from './account.service.js';
 
 export const createAccount = async (req, res) => {
@@ -15,7 +17,7 @@ export const createAccount = async (req, res) => {
         const account = await createAccountRecord({
             accountData: {
                 ...req.body,
-                userId: req.user.id,
+                userId: req.user.role === 'ADMIN_ROLE' ? (req.body.userId || req.user.id) : req.user.id,
             },
         });
 
@@ -40,10 +42,10 @@ export const getAccounts = async (req, res) => {
         // 1. Traemos TODAS las cuentas a través de tu servicio actual
         let { accounts, pagination } = await fetchAccounts({ page, limit, isActive, accountType });
 
-        // 2. TRUCO DE PRESENTACIÓN: Si entra el usuario normal (no admin), 
-        // filtramos la lista para que solo vea la cuenta que existe en tu BD
+        // 2. Si entra el usuario normal (no admin), 
+        // filtramos la lista para que solo vea sus propias cuentas
         if (req.user.role !== 'ADMIN_ROLE') {
-             accounts = accounts.filter(acc => acc.ownerDPI === "1543789270908");
+             accounts = accounts.filter(acc => acc.userId === req.user.id);
         }
 
         res.status(200).json({
@@ -179,6 +181,51 @@ export const getBalance = async (req, res) => {
         res.status(400).json({
             success: false,
             message: 'Error al consultar el saldo',
+            error: err.message,
+        });
+    }
+};
+
+export const updateAccount = async (req, res) => {
+    try {
+        if (req.user.role !== 'ADMIN_ROLE') {
+            return res.status(403).json({ success: false, message: 'No autorizado para editar cuentas' });
+        }
+        
+        const { id } = req.params;
+        const account = await updateAccountRecord(id, req.body);
+
+        res.status(200).json({
+            success: true,
+            message: 'Cuenta actualizada exitosamente',
+            data: account,
+        });
+    } catch (err) {
+        res.status(400).json({
+            success: false,
+            message: 'Error al actualizar la cuenta',
+            error: err.message,
+        });
+    }
+};
+
+export const deleteAccount = async (req, res) => {
+    try {
+        if (req.user.role !== 'ADMIN_ROLE') {
+            return res.status(403).json({ success: false, message: 'No autorizado para eliminar cuentas' });
+        }
+
+        const { id } = req.params;
+        await deleteAccountRecord(id);
+
+        res.status(200).json({
+            success: true,
+            message: 'Cuenta eliminada exitosamente',
+        });
+    } catch (err) {
+        res.status(400).json({
+            success: false,
+            message: 'Error al eliminar la cuenta',
             error: err.message,
         });
     }

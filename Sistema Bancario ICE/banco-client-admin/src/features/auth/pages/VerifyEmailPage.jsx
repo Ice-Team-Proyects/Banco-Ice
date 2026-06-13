@@ -9,9 +9,9 @@ export const VerifyEmailPage = () => {
 
   const token = new URLSearchParams(location.search).get('token');
 
-  const handleFinish = useCallback(() => {
-    
-    setTimeout(() => navigate('/'), 2000);
+  const handleFinish = useCallback((success) => {
+    const delay = success ? 2000 : 4000;
+    setTimeout(() => navigate('/'), delay);
   }, [navigate]);
 
   const { status, message } = useVerifyEmail(token, handleFinish);
@@ -25,6 +25,14 @@ export const VerifyEmailPage = () => {
       <p className='text-lg font-semibold text-gray-700 text-center max-w-lg' aria-live='polite'>
         {displayMessage}
       </p>
+      {status !== 'loading' && (
+        <button
+          onClick={() => navigate('/')}
+          className='mt-6 px-5 py-2 rounded-lg border border-[#003A8F] text-[#003A8F] hover:bg-[#003A8F] hover:text-white transition'
+        >
+          Volver al login
+        </button>
+      )}
     </div>
   );
 };

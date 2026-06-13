@@ -49,7 +49,7 @@ export const useUserManagementStore = create((set, get) => ({
     getAllUsers: async (options = {}) => {
         const { force = false } = options;
         const state = get();
-        if (state.loading) return;
+        if (state.loading && !force) return;
         if (!force && state.users.length > 0) return;
 
         set({ loading: true, error: null });

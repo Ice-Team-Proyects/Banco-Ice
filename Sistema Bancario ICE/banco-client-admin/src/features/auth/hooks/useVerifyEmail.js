@@ -18,14 +18,14 @@ export const useVerifyEmail = (token, onSuccess) => {
     const run = async () => {
       if (!token) {
         setStatus('error');
-        setMessage('Token inválido.');
+        setMessage('Token inválido. Serás redirigido al login.');
         if (!toastShownByToken.get('invalid-token')) {
           showError('Token inválido.');
           toastShownByToken.set('invalid-token', true);
         }
         if (!finishCalledByToken.get('invalid-token')) {
           finishCalledByToken.set('invalid-token', true);
-          onSuccess && onSuccess();
+          onSuccess && onSuccess(false);
         }
         return;
       }
@@ -41,7 +41,7 @@ export const useVerifyEmail = (token, onSuccess) => {
         }
         if (!finishCalledByToken.get(token)) {
           finishCalledByToken.set(token, true);
-          onSuccess && onSuccess();
+          onSuccess && onSuccess(cached.status === 'success');
         }
         if (isMounted) {
           setStatus(cached.status);
@@ -55,7 +55,7 @@ export const useVerifyEmail = (token, onSuccess) => {
       if (!promise) {
         promise = verifyEmailRequest(token)
           .then((res) => {
-            if (res.status === 200) {
+            if (res.status === 200 && res.data && res.data.success) {
               const successMessage =
                 'Tu correo ha sido verificado correctamente. Serás redirigido al login...';
               verifyResultByToken.set(token, {
@@ -65,15 +65,15 @@ export const useVerifyEmail = (token, onSuccess) => {
               return { status: 'success', message: successMessage };
             }
 
-            const errorMessage = 'El enlace ha expirado o no es válido.';
+            const errorMessage = res.data?.message || 'El enlace ha expirado o no es válido.';
             verifyResultByToken.set(token, {
               status: 'error',
               message: errorMessage,
             });
             return { status: 'error', message: errorMessage };
           })
-          .catch(() => {
-            const errorMessage = 'El enlace ha expirado o no es válido.';
+          .catch((error) => {
+            const errorMessage = error.response?.data?.message || 'El enlace ha expirado o no es válido.';
             verifyResultByToken.set(token, {
               status: 'error',
               message: errorMessage,
@@ -103,7 +103,7 @@ export const useVerifyEmail = (token, onSuccess) => {
 
       if (!finishCalledByToken.get(token)) {
         finishCalledByToken.set(token, true);
-        onSuccess && onSuccess();
+        onSuccess && onSuccess(result.status === 'success');
       }
     };
 

@@ -2,6 +2,8 @@ import { create } from 'zustand';
 import {
   getAccounts as getAccountsRequest,
   createAccount as createAccountRequest,
+  updateAccount as updateAccountRequest,
+  deleteAccount as deleteAccountRequest,
   doDeposit, doTransfer, doPayment, doWithdrawal,
 } from '../../../shared/api';
 import { showSuccess, showError } from '../../../shared/utils/toast.js';
@@ -34,6 +36,43 @@ export const useAccountsStore = create((set, get) => ({
       return true;
     } catch (err) {
       const msg = err.response?.data?.message || 'Error al crear la cuenta';
+      set({ error: msg, loading: false });
+      showError(msg);
+      return false;
+    }
+  },
+
+  updateAccount: async (id, payload) => {
+    try {
+      set({ loading: true, error: null });
+      const res = await updateAccountRequest(id, payload);
+      const updatedAcc = res.data?.data ?? res.data;
+      set({
+        accounts: get().accounts.map((acc) => acc._id === id ? updatedAcc : acc),
+        loading: false
+      });
+      showSuccess('Cuenta actualizada correctamente');
+      return true;
+    } catch (err) {
+      const msg = err.response?.data?.message || 'Error al actualizar la cuenta';
+      set({ error: msg, loading: false });
+      showError(msg);
+      return false;
+    }
+  },
+
+  deleteAccount: async (id) => {
+    try {
+      set({ loading: true, error: null });
+      await deleteAccountRequest(id);
+      set({
+        accounts: get().accounts.filter((acc) => acc._id !== id),
+        loading: false
+      });
+      showSuccess('Cuenta eliminada correctamente');
+      return true;
+    } catch (err) {
+      const msg = err.response?.data?.message || 'Error al eliminar la cuenta';
       set({ error: msg, loading: false });
       showError(msg);
       return false;

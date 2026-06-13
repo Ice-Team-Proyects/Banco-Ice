@@ -9,6 +9,8 @@ import {
     payment,
     withdrawal,
     getBalance,
+    updateAccount,
+    deleteAccount,
 } from './account.controller.js';
 
 import {
@@ -288,5 +290,67 @@ router.get('/', getAccounts);
  *                       example: 10000
  */
 router.post('/', validateCreateAccount, createAccount);
+
+// ─── Gestión de cuentas (Solo Admin) ──────────────────────────────────────────
+
+/**
+ * @swagger
+ * /accounts/{id}:
+ *   put:
+ *     summary: Actualizar una cuenta bancaria (Solo Admin)
+ *     tags: [Accounts]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID de la cuenta en MongoDB
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               ownerName:
+ *                 type: string
+ *               ownerDPI:
+ *                 type: string
+ *               accountType:
+ *                 type: string
+ *                 enum: [SAVINGS, CHECKING]
+ *               dailyLimit:
+ *                 type: number
+ *               isActive:
+ *                 type: boolean
+ *     responses:
+ *       200:
+ *         description: Cuenta actualizada con éxito
+ */
+router.put('/:id', updateAccount);
+
+/**
+ * @swagger
+ * /accounts/{id}:
+ *   delete:
+ *     summary: Eliminar una cuenta bancaria (Solo Admin)
+ *     tags: [Accounts]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID de la cuenta en MongoDB
+ *     responses:
+ *       200:
+ *         description: Cuenta eliminada con éxito
+ */
+router.delete('/:id', deleteAccount);
 
 export default router;
