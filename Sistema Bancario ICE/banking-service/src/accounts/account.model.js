@@ -30,7 +30,6 @@ const accountSchema = new Schema(
         ownerDPI: {
             type: String,
             required: [true, 'El DPI del titular es requerido'],
-            unique: true,
             trim: true,
         },
 

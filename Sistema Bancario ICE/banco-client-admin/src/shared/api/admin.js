@@ -12,6 +12,8 @@ export const registerUser    = (formData)    => axiosAuth.post('/auth/register',
 // ── Cuentas (banking-service) ──────────────────────────────────────────────
 export const getAccounts    = ()         => axiosAdmin.get('/accounts');
 export const createAccount  = (data)     => axiosAdmin.post('/accounts', data);
+export const updateAccount  = (id, data) => axiosAdmin.put(`/accounts/${id}`, data);
+export const deleteAccount  = (id)       => axiosAdmin.delete(`/accounts/${id}`);
 export const getBalance     = (num)      => axiosAdmin.get(`/accounts/balance/${num}`);
 export const doDeposit      = (data)     => axiosAdmin.post('/accounts/deposit', data);
 export const doTransfer     = (data)     => axiosAdmin.post('/accounts/transfer', data);

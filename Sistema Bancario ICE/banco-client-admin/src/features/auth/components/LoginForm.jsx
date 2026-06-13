@@ -21,7 +21,7 @@ export const LoginForm = ({ onForgot }) => {
       if (res && res.success) {
         toast.success('¡Bienvenido al Sistema Bancario ICE!', { duration: 2500 });
         
-        // 👇 TODOS VAN AL DASHBOARD. El menú ocultará las cosas prohibidas 👇
+
         navigate('/dashboard'); 
       }
     } catch (err) {
@@ -125,6 +125,17 @@ export const LoginForm = ({ onForgot }) => {
           </span>
         ) : 'Iniciar Sesión'}
       </button>
+
+      {/* Link para registrar */}
+      <div className="text-center mt-3">
+        <button
+          type="button"
+          onClick={() => navigate('/register')}
+          className="text-sm text-[#003A8F] hover:underline"
+        >
+          ¿No tienes cuenta? Regístrate
+        </button>
+      </div>
     </form>
   );
 };

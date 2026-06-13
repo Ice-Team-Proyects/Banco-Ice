@@ -283,3 +283,31 @@ export const fetchAccountBalance = async ({ accountNumber, fieldService }) => {
         accountType: account.accountType,
     };
 };
+
+// ─── Actualizar cuenta ───────────────────────────────────────────────────────
+
+export const updateAccountRecord = async (accountId, updateData) => {
+    const account = await Account.findByIdAndUpdate(
+        accountId,
+        { $set: updateData },
+        { new: true, runValidators: true }
+    );
+
+    if (!account) {
+        throw new Error('Cuenta no encontrada');
+    }
+
+    return account;
+};
+
+// ─── Eliminar cuenta ─────────────────────────────────────────────────────────
+
+export const deleteAccountRecord = async (accountId) => {
+    const account = await Account.findByIdAndDelete(accountId);
+    
+    if (!account) {
+        throw new Error('Cuenta no encontrada');
+    }
+
+    return account;
+};

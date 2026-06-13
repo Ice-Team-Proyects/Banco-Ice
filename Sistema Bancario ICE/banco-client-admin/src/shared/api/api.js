@@ -21,7 +21,6 @@ const attachToken = (config) => {
       token = storage?.state?.token;
     } catch {}
   }
-  console.log('TOKEN ENVIADO:', typeof token, token?.substring(0, 30));
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 };
