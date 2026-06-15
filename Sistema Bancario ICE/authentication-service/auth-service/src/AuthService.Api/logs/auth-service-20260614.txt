@@ -1,0 +1,357 @@
+[2026-06-14 00:16:49 INF] Verificando conexión a la base de datos... {"SourceContext":"Program"}
+[2026-06-14 00:16:53 INF] Base de datos lista. Ejecutando datos semilla... {"SourceContext":"Program"}
+[2026-06-14 00:16:59 INF] Inicialización de base de datos completada exitosamente {"SourceContext":"Program"}
+[2026-06-14 00:16:59 ERR] An exception occurred while processing the key element '<key id="1755afbd-4577-4df1-8c22-4a99844d53f1" version="1" />'. {"EventId":{"Id":24,"Name":"ExceptionOccurredWhileProcessingTheKeyElement"},"SourceContext":"Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager"}
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> System.PlatformNotSupportedException: This operation requires Windows 7 / Windows Server 2008 R2 or later.
+   at Microsoft.AspNetCore.Cryptography.CryptoUtil.AssertPlatformIsWindows()
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor..ctor(IServiceProvider services)
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName, Boolean& forwarded)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName)
+   at Microsoft.AspNetCore.DataProtection.ActivatorExtensions.CreateInstance[T](IActivator activator, String implementationTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.CreateDecryptor(IActivator activator, String decryptorTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+[2026-06-14 00:16:59 WRN] Key {1755afbd-4577-4df1-8c22-4a99844d53f1} is ineligible to be the default key because its CreateEncryptor method failed. {"EventId":{"Id":12,"Name":"KeyIsIneligibleToBeTheDefaultKeyBecauseItsMethodFailed"},"SourceContext":"Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver"}
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> System.PlatformNotSupportedException: This operation requires Windows 7 / Windows Server 2008 R2 or later.
+   at Microsoft.AspNetCore.Cryptography.CryptoUtil.AssertPlatformIsWindows()
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor..ctor(IServiceProvider services)
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName, Boolean& forwarded)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName)
+   at Microsoft.AspNetCore.DataProtection.ActivatorExtensions.CreateInstance[T](IActivator activator, String implementationTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.CreateDecryptor(IActivator activator, String decryptorTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+   at System.Lazy`1.ViaFactory(LazyThreadSafetyMode mode)
+   at System.Lazy`1.ExecutionAndPublication(LazyHelper executionAndPublication, Boolean useDefaultConstructor)
+   at System.Lazy`1.CreateValue()
+   at Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngGcmAuthenticatedEncryptorFactory.CreateEncryptorInstance(IKey key)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyBase.CreateEncryptor()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver.CanCreateAuthenticatedEncryptor(IKey key)
+[2026-06-14 00:17:00 ERR] An exception occurred while processing the key element '<key id="0204768a-bf64-41ae-9ff1-48c5a637625d" version="1" />'. {"EventId":{"Id":24,"Name":"ExceptionOccurredWhileProcessingTheKeyElement"},"SourceContext":"Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager"}
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> System.PlatformNotSupportedException: This operation requires Windows 7 / Windows Server 2008 R2 or later.
+   at Microsoft.AspNetCore.Cryptography.CryptoUtil.AssertPlatformIsWindows()
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor..ctor(IServiceProvider services)
+   at InvokeStub_DpapiXmlDecryptor..ctor(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName, Boolean& forwarded)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName)
+   at Microsoft.AspNetCore.DataProtection.ActivatorExtensions.CreateInstance[T](IActivator activator, String implementationTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.CreateDecryptor(IActivator activator, String decryptorTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+[2026-06-14 00:17:00 WRN] Key {0204768a-bf64-41ae-9ff1-48c5a637625d} is ineligible to be the default key because its CreateEncryptor method failed. {"EventId":{"Id":12,"Name":"KeyIsIneligibleToBeTheDefaultKeyBecauseItsMethodFailed"},"SourceContext":"Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver"}
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> System.PlatformNotSupportedException: This operation requires Windows 7 / Windows Server 2008 R2 or later.
+   at Microsoft.AspNetCore.Cryptography.CryptoUtil.AssertPlatformIsWindows()
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor..ctor(IServiceProvider services)
+   at InvokeStub_DpapiXmlDecryptor..ctor(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName, Boolean& forwarded)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName)
+   at Microsoft.AspNetCore.DataProtection.ActivatorExtensions.CreateInstance[T](IActivator activator, String implementationTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.CreateDecryptor(IActivator activator, String decryptorTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+   at System.Lazy`1.ViaFactory(LazyThreadSafetyMode mode)
+   at System.Lazy`1.ExecutionAndPublication(LazyHelper executionAndPublication, Boolean useDefaultConstructor)
+   at System.Lazy`1.CreateValue()
+   at Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngGcmAuthenticatedEncryptorFactory.CreateEncryptorInstance(IKey key)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyBase.CreateEncryptor()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver.CanCreateAuthenticatedEncryptor(IKey key)
+[2026-06-14 00:17:00 ERR] An exception occurred while processing the key element '<key id="fbc30ce3-5a75-45d2-bd3e-1d09becb9f0a" version="1" />'. {"EventId":{"Id":24,"Name":"ExceptionOccurredWhileProcessingTheKeyElement"},"SourceContext":"Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager"}
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> System.PlatformNotSupportedException: This operation requires Windows 7 / Windows Server 2008 R2 or later.
+   at Microsoft.AspNetCore.Cryptography.CryptoUtil.AssertPlatformIsWindows()
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor..ctor(IServiceProvider services)
+   at InvokeStub_DpapiXmlDecryptor..ctor(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName, Boolean& forwarded)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName)
+   at Microsoft.AspNetCore.DataProtection.ActivatorExtensions.CreateInstance[T](IActivator activator, String implementationTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.CreateDecryptor(IActivator activator, String decryptorTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+[2026-06-14 00:17:00 WRN] Key {fbc30ce3-5a75-45d2-bd3e-1d09becb9f0a} is ineligible to be the default key because its CreateEncryptor method failed. {"EventId":{"Id":12,"Name":"KeyIsIneligibleToBeTheDefaultKeyBecauseItsMethodFailed"},"SourceContext":"Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver"}
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> System.PlatformNotSupportedException: This operation requires Windows 7 / Windows Server 2008 R2 or later.
+   at Microsoft.AspNetCore.Cryptography.CryptoUtil.AssertPlatformIsWindows()
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor..ctor(IServiceProvider services)
+   at InvokeStub_DpapiXmlDecryptor..ctor(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName, Boolean& forwarded)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName)
+   at Microsoft.AspNetCore.DataProtection.ActivatorExtensions.CreateInstance[T](IActivator activator, String implementationTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.CreateDecryptor(IActivator activator, String decryptorTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+   at System.Lazy`1.ViaFactory(LazyThreadSafetyMode mode)
+   at System.Lazy`1.ExecutionAndPublication(LazyHelper executionAndPublication, Boolean useDefaultConstructor)
+   at System.Lazy`1.CreateValue()
+   at Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngGcmAuthenticatedEncryptorFactory.CreateEncryptorInstance(IKey key)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyBase.CreateEncryptor()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver.CanCreateAuthenticatedEncryptor(IKey key)
+[2026-06-14 00:17:00 ERR] An exception occurred while processing the key element '<key id="e7c9404c-7090-4d9e-a38b-d8b4872e7ebd" version="1" />'. {"EventId":{"Id":24,"Name":"ExceptionOccurredWhileProcessingTheKeyElement"},"SourceContext":"Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager"}
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> System.PlatformNotSupportedException: This operation requires Windows 7 / Windows Server 2008 R2 or later.
+   at Microsoft.AspNetCore.Cryptography.CryptoUtil.AssertPlatformIsWindows()
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor..ctor(IServiceProvider services)
+   at InvokeStub_DpapiXmlDecryptor..ctor(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName, Boolean& forwarded)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName)
+   at Microsoft.AspNetCore.DataProtection.ActivatorExtensions.CreateInstance[T](IActivator activator, String implementationTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.CreateDecryptor(IActivator activator, String decryptorTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+[2026-06-14 00:17:00 WRN] Key {e7c9404c-7090-4d9e-a38b-d8b4872e7ebd} is ineligible to be the default key because its CreateEncryptor method failed. {"EventId":{"Id":12,"Name":"KeyIsIneligibleToBeTheDefaultKeyBecauseItsMethodFailed"},"SourceContext":"Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver"}
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> System.PlatformNotSupportedException: This operation requires Windows 7 / Windows Server 2008 R2 or later.
+   at Microsoft.AspNetCore.Cryptography.CryptoUtil.AssertPlatformIsWindows()
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor..ctor(IServiceProvider services)
+   at InvokeStub_DpapiXmlDecryptor..ctor(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName, Boolean& forwarded)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName)
+   at Microsoft.AspNetCore.DataProtection.ActivatorExtensions.CreateInstance[T](IActivator activator, String implementationTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.CreateDecryptor(IActivator activator, String decryptorTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+   at System.Lazy`1.ViaFactory(LazyThreadSafetyMode mode)
+   at System.Lazy`1.ExecutionAndPublication(LazyHelper executionAndPublication, Boolean useDefaultConstructor)
+   at System.Lazy`1.CreateValue()
+   at Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngGcmAuthenticatedEncryptorFactory.CreateEncryptorInstance(IKey key)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyBase.CreateEncryptor()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver.CanCreateAuthenticatedEncryptor(IKey key)
+[2026-06-14 00:17:00 WRN] Key {e7c9404c-7090-4d9e-a38b-d8b4872e7ebd} is ineligible to be the default key because its CreateEncryptor method failed. {"EventId":{"Id":12,"Name":"KeyIsIneligibleToBeTheDefaultKeyBecauseItsMethodFailed"},"SourceContext":"Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver"}
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> System.PlatformNotSupportedException: This operation requires Windows 7 / Windows Server 2008 R2 or later.
+   at Microsoft.AspNetCore.Cryptography.CryptoUtil.AssertPlatformIsWindows()
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor..ctor(IServiceProvider services)
+   at InvokeStub_DpapiXmlDecryptor..ctor(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName, Boolean& forwarded)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName)
+   at Microsoft.AspNetCore.DataProtection.ActivatorExtensions.CreateInstance[T](IActivator activator, String implementationTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.CreateDecryptor(IActivator activator, String decryptorTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+   at System.Lazy`1.ViaFactory(LazyThreadSafetyMode mode)
+--- End of stack trace from previous location ---
+   at System.Lazy`1.CreateValue()
+   at Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngGcmAuthenticatedEncryptorFactory.CreateEncryptorInstance(IKey key)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyBase.CreateEncryptor()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver.CanCreateAuthenticatedEncryptor(IKey key)
+[2026-06-14 00:17:00 WRN] Key {fbc30ce3-5a75-45d2-bd3e-1d09becb9f0a} is ineligible to be the default key because its CreateEncryptor method failed. {"EventId":{"Id":12,"Name":"KeyIsIneligibleToBeTheDefaultKeyBecauseItsMethodFailed"},"SourceContext":"Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver"}
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> System.PlatformNotSupportedException: This operation requires Windows 7 / Windows Server 2008 R2 or later.
+   at Microsoft.AspNetCore.Cryptography.CryptoUtil.AssertPlatformIsWindows()
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor..ctor(IServiceProvider services)
+   at InvokeStub_DpapiXmlDecryptor..ctor(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName, Boolean& forwarded)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName)
+   at Microsoft.AspNetCore.DataProtection.ActivatorExtensions.CreateInstance[T](IActivator activator, String implementationTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.CreateDecryptor(IActivator activator, String decryptorTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+   at System.Lazy`1.ViaFactory(LazyThreadSafetyMode mode)
+--- End of stack trace from previous location ---
+   at System.Lazy`1.CreateValue()
+   at Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngGcmAuthenticatedEncryptorFactory.CreateEncryptorInstance(IKey key)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyBase.CreateEncryptor()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver.CanCreateAuthenticatedEncryptor(IKey key)
+[2026-06-14 00:17:00 WRN] Key {0204768a-bf64-41ae-9ff1-48c5a637625d} is ineligible to be the default key because its CreateEncryptor method failed. {"EventId":{"Id":12,"Name":"KeyIsIneligibleToBeTheDefaultKeyBecauseItsMethodFailed"},"SourceContext":"Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver"}
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> System.PlatformNotSupportedException: This operation requires Windows 7 / Windows Server 2008 R2 or later.
+   at Microsoft.AspNetCore.Cryptography.CryptoUtil.AssertPlatformIsWindows()
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor..ctor(IServiceProvider services)
+   at InvokeStub_DpapiXmlDecryptor..ctor(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName, Boolean& forwarded)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName)
+   at Microsoft.AspNetCore.DataProtection.ActivatorExtensions.CreateInstance[T](IActivator activator, String implementationTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.CreateDecryptor(IActivator activator, String decryptorTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+   at System.Lazy`1.ViaFactory(LazyThreadSafetyMode mode)
+--- End of stack trace from previous location ---
+   at System.Lazy`1.CreateValue()
+   at Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngGcmAuthenticatedEncryptorFactory.CreateEncryptorInstance(IKey key)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyBase.CreateEncryptor()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver.CanCreateAuthenticatedEncryptor(IKey key)
+[2026-06-14 00:17:00 ERR] An exception occurred while processing the key element '<key id="8d14d89a-59a7-4ba5-bee6-b7ab95598842" version="1" />'. {"EventId":{"Id":24,"Name":"ExceptionOccurredWhileProcessingTheKeyElement"},"SourceContext":"Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager"}
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> System.PlatformNotSupportedException: This operation requires Windows 7 / Windows Server 2008 R2 or later.
+   at Microsoft.AspNetCore.Cryptography.CryptoUtil.AssertPlatformIsWindows()
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor..ctor(IServiceProvider services)
+   at InvokeStub_DpapiXmlDecryptor..ctor(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName, Boolean& forwarded)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName)
+   at Microsoft.AspNetCore.DataProtection.ActivatorExtensions.CreateInstance[T](IActivator activator, String implementationTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.CreateDecryptor(IActivator activator, String decryptorTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+[2026-06-14 00:17:00 WRN] Key {8d14d89a-59a7-4ba5-bee6-b7ab95598842} is ineligible to be the default key because its CreateEncryptor method failed. {"EventId":{"Id":12,"Name":"KeyIsIneligibleToBeTheDefaultKeyBecauseItsMethodFailed"},"SourceContext":"Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver"}
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> System.PlatformNotSupportedException: This operation requires Windows 7 / Windows Server 2008 R2 or later.
+   at Microsoft.AspNetCore.Cryptography.CryptoUtil.AssertPlatformIsWindows()
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor..ctor(IServiceProvider services)
+   at InvokeStub_DpapiXmlDecryptor..ctor(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName, Boolean& forwarded)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName)
+   at Microsoft.AspNetCore.DataProtection.ActivatorExtensions.CreateInstance[T](IActivator activator, String implementationTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.CreateDecryptor(IActivator activator, String decryptorTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+   at System.Lazy`1.ViaFactory(LazyThreadSafetyMode mode)
+   at System.Lazy`1.ExecutionAndPublication(LazyHelper executionAndPublication, Boolean useDefaultConstructor)
+   at System.Lazy`1.CreateValue()
+   at Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngGcmAuthenticatedEncryptorFactory.CreateEncryptorInstance(IKey key)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyBase.CreateEncryptor()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver.CanCreateAuthenticatedEncryptor(IKey key)
+[2026-06-14 00:17:00 WRN] Key {1755afbd-4577-4df1-8c22-4a99844d53f1} is ineligible to be the default key because its CreateEncryptor method failed. {"EventId":{"Id":12,"Name":"KeyIsIneligibleToBeTheDefaultKeyBecauseItsMethodFailed"},"SourceContext":"Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver"}
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> System.PlatformNotSupportedException: This operation requires Windows 7 / Windows Server 2008 R2 or later.
+   at Microsoft.AspNetCore.Cryptography.CryptoUtil.AssertPlatformIsWindows()
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor..ctor(IServiceProvider services)
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName, Boolean& forwarded)
+   at Microsoft.AspNetCore.DataProtection.TypeForwardingActivator.CreateInstance(Type expectedBaseType, String originalTypeName)
+   at Microsoft.AspNetCore.DataProtection.ActivatorExtensions.CreateInstance[T](IActivator activator, String implementationTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.CreateDecryptor(IActivator activator, String decryptorTypeName)
+   at Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlEncryptionExtensions.DecryptElement(XElement element, IActivator activator)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IInternalXmlKeyManager.DeserializeDescriptorFromKeyElement(XElement keyElement)
+   at System.Lazy`1.ViaFactory(LazyThreadSafetyMode mode)
+--- End of stack trace from previous location ---
+   at System.Lazy`1.CreateValue()
+   at Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.CngGcmAuthenticatedEncryptorFactory.CreateEncryptorInstance(IKey key)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyBase.CreateEncryptor()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver.CanCreateAuthenticatedEncryptor(IKey key)
+[2026-06-14 00:17:00 WRN] No XML encryptor configured. Key {ec2742dc-c2aa-490b-aea6-f4a5f6245b38} may be persisted to storage in unencrypted form. {"EventId":{"Id":35,"Name":"NoXMLEncryptorConfiguredKeyMayBePersistedToStorageInUnencryptedForm"},"SourceContext":"Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager"}
+[2026-06-14 00:17:01 INF] API de AuthService está ejecutándose en http://localhost:5210. Endpoint de salud: http://localhost:5210/health {"SourceContext":"Program"}
+[2026-06-14 00:17:24 INF] Verificando conexión a la base de datos... {"SourceContext":"Program"}
+[2026-06-14 00:17:28 INF] Base de datos lista. Ejecutando datos semilla... {"SourceContext":"Program"}
+[2026-06-14 00:17:29 INF] Inicialización de base de datos completada exitosamente {"SourceContext":"Program"}
+[2026-06-14 00:17:29 INF] API de AuthService está ejecutándose en http://localhost:5210. Endpoint de salud: http://localhost:5210/health {"SourceContext":"Program"}
+[2026-06-14 02:25:03 INF] Verificando conexión a la base de datos... {"SourceContext":"Program"}
+[2026-06-14 02:25:16 INF] Base de datos lista. Ejecutando datos semilla... {"SourceContext":"Program"}
+[2026-06-14 02:25:18 INF] Inicialización de base de datos completada exitosamente {"SourceContext":"Program"}
+[2026-06-14 02:25:19 INF] API de AuthService está ejecutándose en http://localhost:5210. Endpoint de salud: http://localhost:5210/health {"SourceContext":"Program"}
+[2026-06-14 03:01:47 ERR] An unhandled exception occurred {"SourceContext":"AuthService.Api.Middlewares.GlobalExceptionMiddleware","RequestId":"0HNM9UE4LJ5J8:00000001","RequestPath":"/api/v1/auth/login","ConnectionId":"0HNM9UE4LJ5J8"}
+Microsoft.AspNetCore.Server.Kestrel.Core.BadHttpRequestException: Unexpected end of request content.
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.Http1ContentLengthMessageBody.ReadAsyncInternal(CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpRequestStream.ReadAsyncInternal(Memory`1 destination, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Text.Json.Serialization.ReadBufferState.ReadFromStreamAsync(Stream utf8Json, CancellationToken cancellationToken, Boolean fillBuffer)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.DeserializeAsync(Stream utf8Json, CancellationToken cancellationToken)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.DeserializeAsObjectAsync(Stream utf8Json, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter.ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
+   at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter.ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
+   at Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinder.BindModelAsync(ModelBindingContext bindingContext)
+   at Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder.BindModelAsync(ActionContext actionContext, IModelBinder modelBinder, IValueProvider valueProvider, ParameterDescriptor parameter, ModelMetadata metadata, Object value, Object container)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerBinderDelegateProvider.<>c__DisplayClass0_0.<<CreateBinderDelegate>g__Bind|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Program.<>c.<<<Main>$>b__0_5>d.MoveNext() in /home/emi/Documentos/Banco-Ice/Sistema Bancario ICE/authentication-service/auth-service/src/AuthService.Api/Program.cs:line 74
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.RateLimiting.RateLimitingMiddleware.InvokeInternal(HttpContext context, EnableRateLimitingAttribute enableRateLimitingAttribute)
+   at AuthService.Api.Middlewares.GlobalExceptionMiddleware.InvokeAsync(HttpContext context) in /home/emi/Documentos/Banco-Ice/Sistema Bancario ICE/authentication-service/auth-service/src/AuthService.Api/Middlewares/GlobalExceptionMiddleware.cs:line 18
+[2026-06-14 03:01:49 ERR] HTTP POST /api/v1/auth/login responded 500 in 9884.8474 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNM9UE4LJ5J8:00000001","ConnectionId":"0HNM9UE4LJ5J8"}
+[2026-06-14 03:17:19 WRN] Failed login attempt {"EventId":{"Id":1003,"Name":"LogFailedLoginAttempt"},"SourceContext":"AuthService.Application.Services.AuthService","ActionId":"c2fa429f-5897-45b2-92ed-50a84fce795c","ActionName":"AuthService.Api.Controllers.AuthController.Login (AuthService.Api)","RequestId":"0HNM9UE4LJ5J9:00000001","RequestPath":"/api/v1/auth/login","ConnectionId":"0HNM9UE4LJ5J9"}
+[2026-06-14 03:17:19 ERR] An unhandled exception occurred {"SourceContext":"AuthService.Api.Middlewares.GlobalExceptionMiddleware","RequestId":"0HNM9UE4LJ5J9:00000001","RequestPath":"/api/v1/auth/login","ConnectionId":"0HNM9UE4LJ5J9"}
+System.UnauthorizedAccessException: Invalid credentials
+   at AuthService.Application.Services.AuthService.LoginAsync(LoginDto loginDto) in /home/emi/Documentos/Banco-Ice/Sistema Bancario ICE/authentication-service/auth-service/src/AuthService.Application/Services/AuthService.cs:line 191
+   at AuthService.Api.Controllers.AuthController.Login(LoginDto loginDto) in /home/emi/Documentos/Banco-Ice/Sistema Bancario ICE/authentication-service/auth-service/src/AuthService.Api/Controllers/AuthController.cs:line 18
+   at lambda_method23(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Program.<>c.<<<Main>$>b__0_5>d.MoveNext() in /home/emi/Documentos/Banco-Ice/Sistema Bancario ICE/authentication-service/auth-service/src/AuthService.Api/Program.cs:line 74
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.RateLimiting.RateLimitingMiddleware.InvokeInternal(HttpContext context, EnableRateLimitingAttribute enableRateLimitingAttribute)
+   at AuthService.Api.Middlewares.GlobalExceptionMiddleware.InvokeAsync(HttpContext context) in /home/emi/Documentos/Banco-Ice/Sistema Bancario ICE/authentication-service/auth-service/src/AuthService.Api/Middlewares/GlobalExceptionMiddleware.cs:line 18
+[2026-06-14 03:17:20 INF] HTTP POST /api/v1/auth/login responded 401 in 21585.9601 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNM9UE4LJ5J9:00000001","ConnectionId":"0HNM9UE4LJ5J9"}
+[2026-06-14 03:29:58 INF] User login succeeded {"EventId":{"Id":1002,"Name":"LogUserLoggedIn"},"SourceContext":"AuthService.Application.Services.AuthService","ActionId":"c2fa429f-5897-45b2-92ed-50a84fce795c","ActionName":"AuthService.Api.Controllers.AuthController.Login (AuthService.Api)","RequestId":"0HNM9UE4LJ5JA:00000001","RequestPath":"/api/v1/auth/login","ConnectionId":"0HNM9UE4LJ5JA"}
+[2026-06-14 03:29:59 INF] HTTP POST /api/v1/auth/login responded 200 in 3376.8681 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNM9UE4LJ5JA:00000001","ConnectionId":"0HNM9UE4LJ5JA"}
+[2026-06-14 03:30:10 INF] HTTP GET /api/v1/users/by-role/ADMIN_ROLE responded 200 in 571.4765 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNM9UE4LJ5JB:00000001","ConnectionId":"0HNM9UE4LJ5JB"}
+[2026-06-14 03:30:10 INF] HTTP GET /api/v1/users/by-role/USER_ROLE responded 200 in 328.1615 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNM9UE4LJ5JC:00000001","ConnectionId":"0HNM9UE4LJ5JC"}
+[2026-06-14 20:32:22 INF] Verificando conexión a la base de datos... {"SourceContext":"Program"}
+[2026-06-14 20:32:26 INF] Base de datos lista. Ejecutando datos semilla... {"SourceContext":"Program"}
+[2026-06-14 20:32:28 INF] Inicialización de base de datos completada exitosamente {"SourceContext":"Program"}
+[2026-06-14 20:32:28 INF] API de AuthService está ejecutándose en http://localhost:5210. Endpoint de salud: http://localhost:5210/health {"SourceContext":"Program"}
+[2026-06-14 21:14:37 INF] User Emi registered successfully {"EventId":{"Id":1001,"Name":"LogUserRegistered"},"SourceContext":"AuthService.Application.Services.AuthService","ActionId":"bce05dba-588e-42e7-82f2-050cab90281b","ActionName":"AuthService.Api.Controllers.AuthController.Register (AuthService.Api)","RequestId":"0HNMAHGR4Q17C:00000001","RequestPath":"/api/v1/auth/register","ConnectionId":"0HNMAHGR4Q17C"}
+[2026-06-14 21:14:37 WRN] Validación de certificados SSL deshabilitada. Solo usar en desarrollo. {"SourceContext":"AuthService.Application.Services.EmailService","ActionId":"bce05dba-588e-42e7-82f2-050cab90281b","ActionName":"AuthService.Api.Controllers.AuthController.Register (AuthService.Api)","RequestId":"0HNMAHGR4Q17C:00000001","RequestPath":"/api/v1/auth/register","ConnectionId":"0HNMAHGR4Q17C"}
+[2026-06-14 21:14:38 INF] HTTP POST /api/v1/auth/register responded 201 in 8732.4888 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNMAHGR4Q17C:00000001","ConnectionId":"0HNMAHGR4Q17C"}
+[2026-06-14 21:14:41 INF] Email enviado exitosamente {"SourceContext":"AuthService.Application.Services.EmailService","ActionId":"bce05dba-588e-42e7-82f2-050cab90281b","ActionName":"AuthService.Api.Controllers.AuthController.Register (AuthService.Api)","RequestId":"0HNMAHGR4Q17C:00000001","RequestPath":"/api/v1/auth/register","ConnectionId":"0HNMAHGR4Q17C"}
+[2026-06-14 21:14:41 INF] Pipeline de email completado {"SourceContext":"AuthService.Application.Services.EmailService","ActionId":"bce05dba-588e-42e7-82f2-050cab90281b","ActionName":"AuthService.Api.Controllers.AuthController.Register (AuthService.Api)","RequestId":"0HNMAHGR4Q17C:00000001","RequestPath":"/api/v1/auth/register","ConnectionId":"0HNMAHGR4Q17C"}
+[2026-06-14 21:14:41 INF] Email processed {"SourceContext":"AuthService.Application.Services.EmailService","ActionId":"bce05dba-588e-42e7-82f2-050cab90281b","ActionName":"AuthService.Api.Controllers.AuthController.Register (AuthService.Api)","RequestId":"0HNMAHGR4Q17C:00000001","RequestPath":"/api/v1/auth/register","ConnectionId":"0HNMAHGR4Q17C"}
+[2026-06-14 21:14:41 INF] Verification email sent {"SourceContext":"AuthService.Application.Services.AuthService","ActionId":"bce05dba-588e-42e7-82f2-050cab90281b","ActionName":"AuthService.Api.Controllers.AuthController.Register (AuthService.Api)","RequestId":"0HNMAHGR4Q17C:00000001","RequestPath":"/api/v1/auth/register","ConnectionId":"0HNMAHGR4Q17C"}
+[2026-06-14 21:53:03 WRN] Validación de certificados SSL deshabilitada. Solo usar en desarrollo. {"SourceContext":"AuthService.Application.Services.EmailService","ActionId":"f70dd50e-093d-4ab2-82a4-9251c43ab8eb","ActionName":"AuthService.Api.Controllers.AuthController.verifyEmail (AuthService.Api)","RequestId":"0HNMAHGR4Q17D:00000001","RequestPath":"/api/v1/auth/verify-email","ConnectionId":"0HNMAHGR4Q17D"}
+[2026-06-14 21:53:05 INF] Email enviado exitosamente {"SourceContext":"AuthService.Application.Services.EmailService","ActionId":"f70dd50e-093d-4ab2-82a4-9251c43ab8eb","ActionName":"AuthService.Api.Controllers.AuthController.verifyEmail (AuthService.Api)","RequestId":"0HNMAHGR4Q17D:00000001","RequestPath":"/api/v1/auth/verify-email","ConnectionId":"0HNMAHGR4Q17D"}
+[2026-06-14 21:53:05 INF] Pipeline de email completado {"SourceContext":"AuthService.Application.Services.EmailService","ActionId":"f70dd50e-093d-4ab2-82a4-9251c43ab8eb","ActionName":"AuthService.Api.Controllers.AuthController.verifyEmail (AuthService.Api)","RequestId":"0HNMAHGR4Q17D:00000001","RequestPath":"/api/v1/auth/verify-email","ConnectionId":"0HNMAHGR4Q17D"}
+[2026-06-14 21:53:05 INF] Email processed {"SourceContext":"AuthService.Application.Services.EmailService","ActionId":"f70dd50e-093d-4ab2-82a4-9251c43ab8eb","ActionName":"AuthService.Api.Controllers.AuthController.verifyEmail (AuthService.Api)","RequestId":"0HNMAHGR4Q17D:00000001","RequestPath":"/api/v1/auth/verify-email","ConnectionId":"0HNMAHGR4Q17D"}
+[2026-06-14 21:53:05 INF] Email verified successfully for user Emi {"SourceContext":"AuthService.Application.Services.AuthService","ActionId":"f70dd50e-093d-4ab2-82a4-9251c43ab8eb","ActionName":"AuthService.Api.Controllers.AuthController.verifyEmail (AuthService.Api)","RequestId":"0HNMAHGR4Q17D:00000001","RequestPath":"/api/v1/auth/verify-email","ConnectionId":"0HNMAHGR4Q17D"}
+[2026-06-14 21:53:05 INF] HTTP POST /api/v1/auth/verify-email responded 200 in 2463.7748 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNMAHGR4Q17D:00000001","ConnectionId":"0HNMAHGR4Q17D"}
+[2026-06-14 21:53:42 INF] User login succeeded {"EventId":{"Id":1002,"Name":"LogUserLoggedIn"},"SourceContext":"AuthService.Application.Services.AuthService","ActionId":"5c3b6b19-bd4a-45a3-a8da-246575a7e1de","ActionName":"AuthService.Api.Controllers.AuthController.Login (AuthService.Api)","RequestId":"0HNMAHGR4Q17E:00000001","RequestPath":"/api/v1/auth/login","ConnectionId":"0HNMAHGR4Q17E"}
+[2026-06-14 21:53:42 INF] HTTP POST /api/v1/auth/login responded 200 in 4136.9998 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNMAHGR4Q17E:00000001","ConnectionId":"0HNMAHGR4Q17E"}
+[2026-06-14 22:52:49 INF] User login succeeded {"EventId":{"Id":1002,"Name":"LogUserLoggedIn"},"SourceContext":"AuthService.Application.Services.AuthService","ActionId":"5c3b6b19-bd4a-45a3-a8da-246575a7e1de","ActionName":"AuthService.Api.Controllers.AuthController.Login (AuthService.Api)","RequestId":"0HNMAHGR4Q17F:00000001","RequestPath":"/api/v1/auth/login","ConnectionId":"0HNMAHGR4Q17F"}
+[2026-06-14 22:52:49 INF] HTTP POST /api/v1/auth/login responded 200 in 1935.1669 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNMAHGR4Q17F:00000001","ConnectionId":"0HNMAHGR4Q17F"}
+[2026-06-14 22:53:03 INF] HTTP GET /api/v1/users/by-role/USER_ROLE responded 200 in 379.9615 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNMAHGR4Q17H:00000001","ConnectionId":"0HNMAHGR4Q17H"}
+[2026-06-14 22:53:03 INF] HTTP GET /api/v1/users/by-role/ADMIN_ROLE responded 200 in 386.4709 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNMAHGR4Q17G:00000001","ConnectionId":"0HNMAHGR4Q17G"}
+[2026-06-14 22:53:30 INF] User login succeeded {"EventId":{"Id":1002,"Name":"LogUserLoggedIn"},"SourceContext":"AuthService.Application.Services.AuthService","ActionId":"5c3b6b19-bd4a-45a3-a8da-246575a7e1de","ActionName":"AuthService.Api.Controllers.AuthController.Login (AuthService.Api)","RequestId":"0HNMAHGR4Q17I:00000001","RequestPath":"/api/v1/auth/login","ConnectionId":"0HNMAHGR4Q17I"}
+[2026-06-14 22:53:30 INF] HTTP POST /api/v1/auth/login responded 200 in 2132.4287 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNMAHGR4Q17I:00000001","ConnectionId":"0HNMAHGR4Q17I"}

@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { EnvelopeIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { forgotPassword } from '../../../shared/api/auth.js';
 
 export const ForgotPassword = ({ onSwitch }) => {
@@ -8,13 +9,23 @@ export const ForgotPassword = ({ onSwitch }) => {
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm();
 
+  const handleFormError = (formErrors) => {
+    const firstError = Object.values(formErrors)[0]?.message;
+    if (firstError) {
+      toast.error(firstError);
+    }
+  };
+
   const onSubmit = async ({ email }) => {
     try {
       setLoading(true);
       await forgotPassword(email);
+      toast.success('Si el correo existe, recibirás instrucciones en breve.');
       setSent(true);
-    } catch {
-      setSent(true); // No revelar si el email existe o no (seguridad)
+    } catch (err) {
+      console.error('Error al solicitar recuperación de contraseña:', err);
+      toast.error('No se pudo enviar el correo. Intenta nuevamente.');
+      setSent(true); // No revelar si el email existe o no
     } finally {
       setLoading(false);
     }

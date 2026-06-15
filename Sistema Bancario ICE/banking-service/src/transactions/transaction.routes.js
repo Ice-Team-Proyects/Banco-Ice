@@ -12,7 +12,7 @@ import {
     validateUpdateTransactionStatus,
 } from '../../middlewares/transaction-validator.js';
 
-import { validateJWT } from '../../middlewares/validate-jwt.js';
+import { validateJWT } from '../../middlewares/validate-JWT.js';
 
 const router = Router();
 

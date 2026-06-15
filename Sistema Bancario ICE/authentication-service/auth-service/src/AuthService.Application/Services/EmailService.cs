@@ -14,23 +14,25 @@ public class EmailService(IConfiguration configuration, ILogger<EmailService> lo
         var subject = "Verifica tu dirección de correo electrónico";
         var verificationUrl = $"{configuration["AppSettings:FrontendUrl"]}/verify-email?token={token}";
                 var htmlBody = $@"
-                        <div style='font-family: Arial,Helvetica,sans-serif; background:#f4f6f9; padding:30px;'>
-                            <div style='max-width:600px;margin:0 auto;background:#ffffff;border-radius:8px;overflow:hidden;border:1px solid #e6e9ef;'>
-                                <div style='padding:24px 28px;background:linear-gradient(90deg,#003A8F,#1a5cb8);color:#fff'>
-                                    <h1 style='margin:0;font-size:20px'>Banco ICE</h1>
+                        <div style='font-family: Arial,Helvetica,sans-serif; background:#131313; padding:24px;'>
+                            <div style='max-width:600px; margin:0 auto; background:#FDF5E6; border-radius:28px; overflow:hidden; border:1px solid rgba(0,0,0,0.08); box-shadow:0 32px 80px rgba(0,0,0,0.18);'>
+                                <div style='padding:32px 28px; background:linear-gradient(135deg,#8b0000,#ff5625); color:#ffffff; text-align:center;'>
+                                    <p style='margin:0;font-size:12px;letter-spacing:0.28em;text-transform:uppercase;opacity:0.9;'>Banco ICE</p>
+                                    <h1 style='margin:12px 0 0;font-size:32px;line-height:1.05;font-weight:900;letter-spacing:0.06em;'>Verificación de correo</h1>
                                 </div>
-                                <div style='padding:28px;color:#0a1628'>
-                                    <h2 style='margin-top:0'>¡Hola {username}!</h2>
-                                    <p style='color:#475569'>Gracias por registrarte en Banco ICE. Para completar tu registro, confirma tu correo haciendo clic en el botón de abajo.</p>
-                                    <p style='text-align:center;margin:24px 0'>
-                                        <a href='{verificationUrl}' style='display:inline-block;background:#003A8F;color:#fff;padding:12px 22px;border-radius:6px;text-decoration:none;font-weight:600;'>Verificar mi correo</a>
-                                    </p>
-                                    <p style='color:#475569;font-size:13px'>Si el botón no funciona, copia y pega esta URL en tu navegador:</p>
-                                    <p style='word-break:break-all;color:#0b2a66;font-size:13px'>{verificationUrl}</p>
-                                    <p style='color:#94a3b8;font-size:13px;margin-top:18px'>Este enlace expirará en 24 horas. Si no reconoces esta acción, ignora este correo.</p>
+                                <div style='padding:30px 28px; background:#fff6ed; color:#0f172a;'>
+                                    <h2 style='margin:0;font-size:22px;font-weight:800;'>¡Hola {username}!</h2>
+                                    <p style='margin:18px 0 0;font-size:15px; line-height:1.8; color:#475569;'>Gracias por registrarte en Banco ICE. Para completar tu cuenta, confirma tu correo haciendo clic en el botón a continuación.</p>
+                                    <div style='text-align:center; margin:30px 0;'>
+                                        <a href='{verificationUrl}' style='display:inline-block; padding:14px 26px; border-radius:999px; background:linear-gradient(90deg,#8b0000,#ff5625); color:#ffffff; text-decoration:none; font-weight:700; letter-spacing:0.02em;'>Verificar mi correo</a>
+                                    </div>
+                                    <p style='margin:0;font-size:13px; color:#64748b;'>Si el botón no funciona, copia y pega esta URL en tu navegador:</p>
+                                    <p style='margin:12px 0 0; word-break:break-all; color:#0b2a66; font-size:13px;'> {verificationUrl}</p>
+                                    <p style='margin:22px 0 0; color:#94a3b8; font-size:13px;'>Este enlace expirará en 24 horas. Si no reconoces esta acción, ignora este correo.</p>
                                 </div>
-                                <div style='padding:16px 28px;background:#fbfdff;border-top:1px solid #eef2f7;color:#64748b;font-size:13px'>
-                                    <p style='margin:0'>¿Necesitas ayuda? Contáctanos en <strong>{configuration["SmtpSettings:FromEmail"]}</strong></p>
+                                <div style='padding:20px 28px; background:#131313; color:#d8d8d8; font-size:13px; text-align:center;'>
+                                    <p style='margin:0;'>Banco ICE — Servicio bancario con seguridad y estilo.</p>
+                                    <p style='margin:6px 0 0;'>¿Dudas? Escribe a <a href='mailto:{configuration["SmtpSettings:FromEmail"]}' style='color:#ffb19b; text-decoration:none;'>{configuration["SmtpSettings:FromEmail"]}</a></p>
                                 </div>
                             </div>
                         </div>
@@ -76,25 +78,30 @@ public class EmailService(IConfiguration configuration, ILogger<EmailService> lo
                 var subject = "¡Bienvenido a Banco ICE!";
 
                 var htmlBody = $@"
-                        <div style='font-family: Arial,Helvetica,sans-serif; background:#f4f6f9; padding:30px;'>
-                            <div style='max-width:600px;margin:0 auto;background:#fff;border-radius:8px;overflow:hidden;border:1px solid #e6e9ef;'>
-                                <div style='padding:20px 24px;background:linear-gradient(90deg,#003A8F,#1a5cb8);color:#fff'>
-                                    <h1 style='margin:0;font-size:18px'>Bienvenido a Banco ICE</h1>
+                        <div style='font-family: Arial,Helvetica,sans-serif; background:#131313; padding:24px;'>
+                            <div style='max-width:600px; margin:0 auto; background:#FDF5E6; border-radius:28px; overflow:hidden; border:1px solid rgba(0,0,0,0.08); box-shadow:0 32px 80px rgba(0,0,0,0.18);'>
+                                <div style='padding:32px 28px; background:linear-gradient(135deg,#8b0000,#ff5625); color:#ffffff; text-align:center;'>
+                                    <p style='margin:0;font-size:12px;letter-spacing:0.28em;text-transform:uppercase;opacity:0.9;'>Banco ICE</p>
+                                    <h1 style='margin:12px 0 0;font-size:32px;line-height:1.05;font-weight:900;letter-spacing:0.06em;'>¡Bienvenido!</h1>
                                 </div>
-                                <div style='padding:24px;color:#0a1628'>
-                                    <h2 style='margin-top:0'>¡Hola {username}!</h2>
-                                    <p style='color:#475569'>Tu cuenta ha sido activada correctamente. Ya puedes iniciar sesión y comenzar a usar nuestros servicios bancarios.</p>
-                                    <p style='margin-top:16px'>Te recomendamos revisar la sección de ayuda si necesitas orientación sobre las funciones disponibles.</p>
-                                    <p style='margin-top:18px;color:#94a3b8;font-size:13px'>Gracias por confiar en Banco ICE.</p>
+                                <div style='padding:30px 28px; background:#fff6ed; color:#0f172a;'>
+                                    <h2 style='margin:0;font-size:22px;font-weight:800;'>Hola {username},</h2>
+                                    <p style='margin:18px 0 0;font-size:15px; line-height:1.8; color:#475569;'>Tu cuenta en Banco ICE está activa. Ya puedes iniciar sesión y comenzar a gestionar tus finanzas desde el portal.</p>
+                                    <div style='margin:24px 0; padding:22px; border-radius:24px; background:linear-gradient(180deg, rgba(255,86,37,0.14), rgba(139,0,0,0.06));'>
+                                        <p style='margin:0; font-size:14px; font-weight:700; color:#8b0000;'>Consejo ICE</p>
+                                        <p style='margin:10px 0 0; color:#475569; font-size:13px;'>Activa la verificación en dos pasos y revisa tu estado de cuenta mensual para mayor seguridad.</p>
+                                    </div>
+                                    <p style='margin:0; color:#94a3b8; font-size:13px;'>Gracias por confiar en Banco ICE. Estamos aquí para apoyarte.</p>
                                 </div>
-                                <div style='padding:12px 18px;background:#fbfdff;border-top:1px solid #eef2f7;color:#64748b;font-size:13px'>
-                                    <p style='margin:0'>¿Dudas? Contacta a <strong>{configuration["SmtpSettings:FromEmail"]}</strong></p>
+                                <div style='padding:20px 28px; background:#131313; color:#d8d8d8; font-size:13px; text-align:center;'>
+                                    <p style='margin:0;'>Banco ICE — Experiencia bancaria premium y segura.</p>
+                                    <p style='margin:6px 0 0;'>¿Necesitas ayuda? Escríbenos a <a href='mailto:{configuration["SmtpSettings:FromEmail"]}' style='color:#ffb19b; text-decoration:none;'>{configuration["SmtpSettings:FromEmail"]}</a></p>
                                 </div>
                             </div>
                         </div>
                 ";
 
-                var textBody = $"Hola {username}!\n\nTu cuenta en Banco ICE ha sido activada. Ya puedes iniciar sesión en la plataforma.\n\nGracias por unirte.";
+                var textBody = $"Hola {username}!\n\nTu cuenta en Banco ICE ha sido activada. Ya puedes iniciar sesión en el portal.\n\nGracias por unirte.";
 
                 await SendEmailAsync(email, subject, htmlBody, textBody);
     }
