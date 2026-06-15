@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Mzj83TxzR50=",
+  "dgSpecHash": "uyKSKdICA+4=",
   "success": true,
-  "projectFilePath": "C:\\Users\\WorkStation\\Downloads\\Banco-Ice\\Sistema Bancario ICE\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj",
+  "projectFilePath": "/home/emi/Documentos/Banco-Ice/Sistema Bancario ICE/authentication-service/auth-service/src/AuthService.Domain/AuthService.Domain.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\WorkStation\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512"
+    "/home/emi/.nuget/packages/system.componentmodel.annotations/5.0.0/system.componentmodel.annotations.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }

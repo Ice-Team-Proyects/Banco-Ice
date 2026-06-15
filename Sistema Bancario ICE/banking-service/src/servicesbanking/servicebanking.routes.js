@@ -7,7 +7,7 @@ import {
 } from './servicebanking.controller.js';
 
 import { validateCreateFieldService } from '../../middlewares/field-service-validator.js';
-import { validateJWT } from '../../middlewares/validate-jwt.js'; 
+import { validateJWT } from '../../middlewares/validate-JWT.js'; 
 
 const router = Router();
 

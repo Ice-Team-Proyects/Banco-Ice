@@ -30,12 +30,16 @@ const typeColor = {
 };
 
 // ── Create Service Modal ───────────────────────────────────────────────────
-const CreateServiceModal = ({ onClose }) => {
+const CreateServiceModal = ({ onClose, user }) => {
   const { createService, loading } = useServicesStore();
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = async (data) => {
-    const ok = await createService({ ...data, transactionFee: Number(data.transactionFee || 0) });
+    const ok = await createService({
+      ...data,
+      transactionFee: Number(data.transactionFee || 0),
+      createdBy: user?.id || user?._id,
+    });
     if (ok) onClose();
   };
 
@@ -124,12 +128,9 @@ export const Services = () => {
           </div>
         </div>
         
-        {/* 👇 CONDICIONAL: Solo el Admin ve el botón de crear servicio */}
-        {isAdmin && (
-          <button onClick={() => setShowCreate(true)} className="flex items-center gap-2 px-4 py-2 bg-[#003A8F] text-white rounded-lg hover:bg-[#002a6b] transition text-sm">
-            <PlusIcon className="w-4 h-4" /> Nuevo Servicio
-          </button>
-        )}
+        <button onClick={() => setShowCreate(true)} className="flex items-center gap-2 px-4 py-2 bg-[#003A8F] text-white rounded-lg hover:bg-[#002a6b] transition text-sm">
+          <PlusIcon className="w-4 h-4" /> Nuevo Servicio
+        </button>
       </div>
 
       {/* Filters */}
@@ -188,7 +189,7 @@ export const Services = () => {
         </div>
       )}
 
-      {showCreate && <CreateServiceModal onClose={() => setShowCreate(false)} />}
+      {showCreate && <CreateServiceModal onClose={() => setShowCreate(false)} user={user} />}
     </section>
   );
 };

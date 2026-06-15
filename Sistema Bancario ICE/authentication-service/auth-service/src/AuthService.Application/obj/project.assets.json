@@ -3985,19 +3985,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\WorkStation\\.nuget\\packages\\": {}
+    "/home/emi/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\WorkStation\\Downloads\\Banco-Ice\\Sistema Bancario ICE\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj",
+      "projectUniqueName": "/home/emi/Documentos/Banco-Ice/Sistema Bancario ICE/authentication-service/auth-service/src/AuthService.Application/AuthService.Application.csproj",
       "projectName": "AuthService.Application",
-      "projectPath": "C:\\Users\\WorkStation\\Downloads\\Banco-Ice\\Sistema Bancario ICE\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj",
-      "packagesPath": "C:\\Users\\WorkStation\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\WorkStation\\Downloads\\Banco-Ice\\Sistema Bancario ICE\\authentication-service\\auth-service\\src\\AuthService.Application\\obj\\",
+      "projectPath": "/home/emi/Documentos/Banco-Ice/Sistema Bancario ICE/authentication-service/auth-service/src/AuthService.Application/AuthService.Application.csproj",
+      "packagesPath": "/home/emi/.nuget/packages/",
+      "outputPath": "/home/emi/Documentos/Banco-Ice/Sistema Bancario ICE/authentication-service/auth-service/src/AuthService.Application/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\WorkStation\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/home/emi/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -4009,8 +4009,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\WorkStation\\Downloads\\Banco-Ice\\Sistema Bancario ICE\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj": {
-              "projectPath": "C:\\Users\\WorkStation\\Downloads\\Banco-Ice\\Sistema Bancario ICE\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj"
+            "/home/emi/Documentos/Banco-Ice/Sistema Bancario ICE/authentication-service/auth-service/src/AuthService.Domain/AuthService.Domain.csproj": {
+              "projectPath": "/home/emi/Documentos/Banco-Ice/Sistema Bancario ICE/authentication-service/auth-service/src/AuthService.Domain/AuthService.Domain.csproj"
             }
           }
         }
@@ -4079,7 +4079,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.416/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/home/emi/.dotnet/sdk/8.0.417/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
@@ -4088,7 +4088,7 @@
       "code": "NU1902",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'MailKit' 4.13.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-9j88-vvj5-vhgr",
+      "message": "El paquete \"MailKit\" 4.13.0 tiene una vulnerabilidad de gravedad moderada conocida, https://github.com/advisories/GHSA-9j88-vvj5-vhgr",
       "libraryId": "MailKit",
       "targetGraphs": [
         "net8.0"

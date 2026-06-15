@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   BanknotesIcon, PlusIcon, MagnifyingGlassIcon,
-  ArrowDownIcon, ArrowsRightLeftIcon, PencilIcon, TrashIcon
+  ArrowDownIcon, ArrowsRightLeftIcon, PencilIcon, TrashIcon, ChevronRightIcon
 } from '@heroicons/react/24/outline';
 import { useAccountsStore } from '../store/accountsStore.js';
 import { useServicesStore } from '../../services/store/servicesStore.js';
@@ -101,10 +101,19 @@ const CreateAccountModal = ({ onClose, isAdmin, user }) => {
   const { createAccount, loading, fetchAccounts } = useAccountsStore();
   const { register, handleSubmit, formState: { errors } } = useForm();
 
+  const ownerName = user
+    ? `${user.firstName || user.name || user.username || 'Usuario'} ${user.lastName || ''}`.trim()
+    : 'Usuario';
+
   const onSubmit = async (data) => {
     if (!isAdmin && user) {
-      data.userId = user.id || user._id; // Asignar el ID del usuario
+      data.userId = user.id || user._id;
     }
+    data.ownerName = ownerName;
+    // Generar un DPI automático de 13 dígitos: timestamp + random
+    const timestamp = Date.now().toString().slice(-9); // 9 dígitos
+    const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0'); // 4 dígitos
+    data.ownerDPI = (timestamp + random).slice(0, 13); // Asegurar exactamente 13 dígitos
     const ok = await createAccount(data);
     if (ok) {
       await fetchAccounts();
@@ -130,20 +139,19 @@ const CreateAccountModal = ({ onClose, isAdmin, user }) => {
             </select>
           </Field>
         </div>
-        <Field label="Nombre del Titular" error={errors.ownerName}>
-          <input className={inputCls} placeholder="Nombre completo" {...register('ownerName', { required: 'Requerido' })} />
-        </Field>
-        <Field label="DPI del Titular" error={errors.ownerDPI}>
-          <input className={inputCls} placeholder="13 dígitos" {...register('ownerDPI', { required: 'Requerido', minLength: { value: 13, message: 'Mínimo 13 dígitos' } })} />
-        </Field>
+
+        <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafd] p-4 text-sm text-[#344060]">
+          <p className="text-xs uppercase tracking-[0.25em] text-[#6b7280]">Titular asignado</p>
+          <p className="mt-2 font-semibold text-[#0f172a]">{ownerName}</p>
+        </div>
+
         {isAdmin && (
           <Field label="ID de Usuario (opcional)" error={errors.userId}>
             <input className={inputCls} placeholder="ID del usuario del sistema" {...register('userId')} />
           </Field>
         )}
-        <Field label="Límite Diario" error={errors.dailyLimit}>
-          <input type="number" className={inputCls} placeholder="10000" defaultValue={10000} {...register('dailyLimit', { min: { value: 0, message: 'No puede ser negativo' } })} />
-        </Field>
+
+
         <div className="flex justify-end gap-3 pt-2 border-t">
           <button type="button" onClick={onClose} className="px-4 py-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 text-sm transition">Cancelar</button>
           <button type="submit" disabled={loading} className="px-5 py-2 rounded-lg text-white text-sm font-medium transition disabled:opacity-60" style={{ background: 'linear-gradient(90deg,#003A8F,#1a5cb8)' }}>
@@ -369,45 +377,53 @@ export const Accounts = () => {
 
         {/* Vista Usuario: Cards */}
         {!loading && filtered.length > 0 && !isAdmin && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
             {filtered.map((acc) => (
-              <div key={acc._id} className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#003A8F] to-[#1a5cb8]"></div>
-                <div className="flex justify-between items-start mb-5 mt-1">
-                  <div>
-                    <h3 className="font-semibold text-lg text-[#003A8F] tracking-tight">{acc.accountNumber}</h3>
-                    <span className={`inline-block mt-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${typeBadge[acc.accountType] ?? 'bg-gray-100 text-gray-500'}`}>
-                      {typeLabel[acc.accountType] ?? acc.accountType}
-                    </span>
+              <div key={acc._id} className="relative overflow-hidden rounded-[1.75rem] bg-[#11131b] border border-white/10 p-6 shadow-[0_28px_60px_rgba(0,0,0,0.25)]">
+                <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-r from-[#7c1f20] via-[#2c0909] to-[#11131b] opacity-95" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.08),_transparent_32%)] pointer-events-none" />
+
+                <div className="relative z-10 flex items-center justify-between mb-6">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-[#ffb8b2] ring-1 ring-white/10">
+                    <BanknotesIcon className="w-6 h-6" />
                   </div>
-                  <span className={`text-xs font-semibold px-2 py-1 rounded-md ${acc.isActive ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-500'}`}>
-                    {acc.isActive ? 'Activa' : 'Inactiva'}
+                  <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#f8d6cc]">
+                    {typeLabel[acc.accountType] ?? acc.accountType}
                   </span>
                 </div>
-                
-                <div className="mb-5">
-                  <p className="text-xs text-gray-400 uppercase font-semibold tracking-wider">Saldo Disponible</p>
-                  <p className="text-2xl font-bold text-[#0a1628]">{formatCurrency(acc.balance, acc.currency)}</p>
+
+                <div className="relative z-10 mb-5">
+                  <p className="text-xs uppercase tracking-[0.35em] text-[#7f8c9d]">Cuenta</p>
+                  <h3 className="mt-3 text-3xl font-semibold text-white tracking-tight">{acc.accountNumber}</h3>
                 </div>
-                
-                <div className="text-xs text-gray-500 mb-5 bg-gray-50 p-3 rounded-lg border border-gray-100">
-                  <div className="flex justify-between mb-1">
-                    <span className="font-medium text-gray-400">Titular</span>
-                    <span className="font-semibold text-[#344060]">{acc.ownerName}</span>
+
+                <div className="relative z-10 mb-6">
+                  <p className="text-sm text-[#b8bec8]">Saldo Disponible</p>
+                  <p className="mt-2 text-3xl font-bold text-white">{formatCurrency(acc.balance, acc.currency)}</p>
+                </div>
+
+                <div className="relative z-10 mb-6 rounded-[1.25rem] border border-white/10 bg-white/5 p-4 text-sm text-[#d1d7e0] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="text-xs uppercase tracking-[0.2em] text-[#8b98ad]">Titular</span>
+                    <span className="font-semibold text-white truncate">{acc.ownerName}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="font-medium text-gray-400">DPI</span>
-                    <span className="font-semibold text-[#344060]">{acc.ownerDPI}</span>
+                  <div className="mt-3 flex items-center justify-between gap-3">
+                    <span className="text-xs uppercase tracking-[0.2em] text-[#8b98ad]">DPI</span>
+                    <span className="font-semibold text-white truncate">{acc.ownerDPI}</span>
                   </div>
                 </div>
-                
-                <div className="flex items-center gap-2 pt-2 border-t border-gray-100">
+
+                <div className="relative z-10 flex items-center justify-between gap-3">
                   <button
                     onClick={() => setOperation({ type: 'transfer', account: acc })}
-                    className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-blue-50 text-blue-700 hover:bg-blue-100 hover:text-blue-800 transition text-sm font-semibold"
+                    className="flex w-full items-center justify-center gap-2 rounded-full bg-[#0f172a] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#182339]"
                   >
-                    <ArrowsRightLeftIcon className="w-4 h-4" /> Transferir
+                    <span>Transferir</span>
+                    <ChevronRightIcon className="w-4 h-4" />
                   </button>
+                  <span className={`rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] ${acc.isActive ? 'bg-emerald-500/10 text-emerald-300' : 'bg-rose-500/10 text-rose-300'}`}>
+                    {acc.isActive ? 'Activa' : 'Inactiva'}
+                  </span>
                 </div>
               </div>
             ))}
