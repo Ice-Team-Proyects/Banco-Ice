@@ -1,0 +1,25 @@
+# client-userICE/.gitignore
+node_modules/
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Entornos (usa .env.example como plantilla)
+.env
+.env.*.local
+
+# Código nativo generado por prebuild (CNG)
+/android
+/ios
+
+# Otros
+npm-debug.*
+*.log
+.DS_Store
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision

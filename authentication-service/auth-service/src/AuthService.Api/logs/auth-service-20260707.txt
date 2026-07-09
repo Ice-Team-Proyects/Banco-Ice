@@ -1,0 +1,6 @@
+[2026-07-07 21:12:48 INF] Verificando conexión a la base de datos... {"SourceContext":"Program"}
+[2026-07-07 21:12:49 INF] Base de datos lista. Ejecutando datos semilla... {"SourceContext":"Program"}
+[2026-07-07 21:12:51 INF] Inicialización de base de datos completada exitosamente {"SourceContext":"Program"}
+[2026-07-07 21:12:51 INF] API de AuthService está ejecutándose en http://localhost:5210. Endpoint de salud: http://localhost:5210/health {"SourceContext":"Program"}
+[2026-07-07 22:22:37 INF] User login succeeded {"EventId":{"Id":1002,"Name":"LogUserLoggedIn"},"SourceContext":"AuthService.Application.Services.AuthService","ActionId":"df42c830-be89-42eb-bebe-93d158a6afd9","ActionName":"AuthService.Api.Controllers.AuthController.Login (AuthService.Api)","RequestId":"0HNMSL24U9IUE:00000001","RequestPath":"/api/v1/auth/login","ConnectionId":"0HNMSL24U9IUE"}
+[2026-07-07 22:22:37 INF] HTTP POST /api/v1/auth/login responded 200 in 1489.1867 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNMSL24U9IUE:00000001","ConnectionId":"0HNMSL24U9IUE"}
