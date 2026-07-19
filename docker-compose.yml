@@ -1,0 +1,160 @@
+# Banco-Ice/docker-compose.yml
+
+name: banco-ice
+
+services:
+  # ── BASE DE DATOS POSTGRES ───────────────────────────────────
+  postgres:
+    image: postgres:13
+    container_name: banco_ice_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-IN6AV}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-Hoc41509}
+      POSTGRES_DB: ${POSTGRES_DB:-sistema_bancario_ice}
+    ports:
+      - "${POSTGRES_PORT:-5436}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - ice-network
+
+  # ── BASE DE DATOS MONGO ──────────────────────────────────────
+  mongodb:
+    image: mongo:4.4
+    container_name: banco_ice_mongodb
+    restart: unless-stopped
+    ports:
+      - "${MONGO_PORT:-27017}:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    networks:
+      - ice-network
+
+  # ── AUTH SERVICE (.NET) ──────────────────────────────────────
+  auth-service:
+    build:
+      context: ./authentication-service/auth-service
+      dockerfile: ../../dockerfiles/Dockerfile.auth-service
+    container_name: banco_ice_auth_service
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:5210
+      DOTNET_USE_POLLING_FILE_WATCHER: "1"
+      DOTNET_WATCH_RESTART_ON_RUDE_EDIT: "1"
+      ConnectionStrings__DefaultConnection: "Host=postgres;Database=${POSTGRES_DB:-sistema_bancario_ice};Username=${POSTGRES_USER:-IN6AV};Password=${POSTGRES_PASSWORD:-Hoc41509};Port=5432"
+      CloudinarySettings__Cloudname: ${CLOUDINARY_CLOUD_NAME:-dss7fs6pl}
+      CloudinarySettings__ApiKey: ${CLOUDINARY_API_KEY:-915748239273329}
+      CloudinarySettings__ApiSecret: ${CLOUDINARY_API_SECRET:-iwMHJNtQE1U2Evm8JPkb1L-7NWM}
+      CloudinarySettings__BaseUrl: ${CLOUDINARY_BASE_URL:-https://res.cloudinary.com/dss7fs6pl/image/upload/v1770409878}
+      CloudinarySettings__Folder: ${CLOUDINARY_FOLDER:-auth_ks_in6av/profiles}
+      CloudinarySettings__DefaultAvatarPath: ${CLOUDINARY_DEFAULT_AVATAR:-avatarDefault-1749508519496.png}
+      SmtpSettings__Host: ${SMTP_HOST:-smtp.gmail.com}
+      SmtpSettings__Port: ${SMTP_PORT:-587}
+      SmtpSettings__EnableSsl: "true"
+      SmtpSettings__UserName: ${SMTP_USERNAME:-2026iceteam@gmail.com}
+      SmtpSettings__Password: ${SMTP_PASSWORD:-xednudcujdbhahsb}
+      SmtpSettings__FromEmail: ${SMTP_FROM_EMAIL:-2026iceteam@gmail.com}
+      SmtpSettings__Enabled: "true"
+      AppSettings__FrontendUrl: ${FRONTEND_URL:-http://localhost:5174}
+      JwtSettings__SecretKey: "$$ecretKeyForBanking-$$ervice2024177"
+      JwtSettings__Issuer: ${JWT_ISSUER:-BankingService}
+      JwtSettings__Audience: ${JWT_AUDIENCE:-BankingService}
+      JwtSettings__ExpiryInMinutes: "60"
+      Security__AllowedOrigins__0: "http://localhost:5174"
+      Security__AllowedOrigins__1: "http://localhost:5173"
+      Security__AllowedOrigins__2: "http://localhost:3000"
+      Security__AdminAllowedOrigins__0: "http://localhost:5174"
+    env_file:
+      - path: .env.docker
+        required: false
+    volumes:
+      - ./authentication-service/auth-service:/src
+      - /src/src/AuthService.Api/bin
+      - /src/src/AuthService.Api/obj
+      - /src/src/AuthService.Application/bin
+      - /src/src/AuthService.Application/obj
+      - /src/src/AuthService.Domain/bin
+      - /src/src/AuthService.Domain/obj
+      - /src/src/AuthService.Persistence/bin
+      - /src/src/AuthService.Persistence/obj
+    ports:
+      - "${AUTH_SERVICE_PORT:-5210}:5210"
+    networks:
+      - ice-network
+
+  # ── BANKING SERVICE (Express) ────────────────────────────────
+  banking-service:
+    build:
+      context: ./banking-service
+      dockerfile: ../dockerfiles/Dockerfile.banking-service
+    container_name: banco_ice_banking_service
+    restart: unless-stopped
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      auth-service:
+        condition: service_started
+    environment:
+      NODE_ENV: development
+      PORT: 3050
+      URI_MONGODB: mongodb://mongodb:27017/${MONGO_DB_NAME:-banking-service}
+      JWT_SECRET: "$$ecretKeyForBanking-$$ervice2024177"
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-1h}
+      JWT_ISSUER: ${JWT_ISSUER:-BankingService}
+      JWT_AUDIENCE: ${JWT_AUDIENCE:-BankingService}
+      NODE_TLS_REJECT_UNAUTHORIZED: "0"
+    env_file:
+      - path: .env.docker
+        required: false
+    volumes:
+      - ./banking-service:/app
+      - /app/node_modules
+    ports:
+      - "${BANKING_SERVICE_PORT:-3050}:3050"
+    networks:
+      - ice-network
+
+  # ── BANCO CLIENT ADMIN (React + Vite) ────────────────────────
+  banco-client-admin:
+    build:
+      context: ./banco-client-admin
+      dockerfile: ../dockerfiles/Dockerfile.banco-client-admin
+    container_name: banco_ice_client_admin
+    restart: unless-stopped
+    depends_on:
+      auth-service:
+        condition: service_started
+      banking-service:
+        condition: service_started
+    environment:
+      VITE_AUTH_URL: ${VITE_AUTH_URL:-http://localhost:5210/api/v1}
+      VITE_ADMIN_URL: ${VITE_ADMIN_URL:-http://localhost:3050/BankingService/v1}
+      CHOKIDAR_USEPOLLING: "true"
+    env_file:
+      - path: .env.docker
+        required: false
+    volumes:
+      - ./banco-client-admin:/app
+      - /app/node_modules
+    ports:
+      - "${CLIENT_ADMIN_PORT:-5174}:5174"
+    networks:
+      - ice-network
+
+networks:
+  ice-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  mongo_data:
