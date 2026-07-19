@@ -1,0 +1,64 @@
+# ── Variables de entorno ─────────────────────────────────────────
+**/.env
+**/.env.*
+!**/.env.example
+
+# ── Docker env específico (contiene credenciales) ─────────────────
+.env.docker
+
+# ── Dependencias Node ────────────────────────────────────────────
+**/node_modules/
+**/.pnpm-store/
+
+# ── Build outputs ────────────────────────────────────────────────
+**/dist/
+**/dist-ssr/
+**/build/
+
+# ── .NET build artifacts ─────────────────────────────────────────
+**/bin/
+**/obj/
+**/*.user
+**/*.suo
+**/*.userosscache
+**/*.sln.docstates
+
+# ── Logs ─────────────────────────────────────────────────────────
+**/logs/
+**/*.log
+**/npm-debug.log*
+**/pnpm-debug.log*
+
+# ── Editor / IDE ─────────────────────────────────────────────────
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── OS ───────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ── Cache ────────────────────────────────────────────────────────
+**/.cache/
+**/.vite/
+**/.eslintcache
+**/.dotnet/
+**/.watch/
+
+# ── Claves y certificados ─────────────────────────────────────────
+**/keys/
+**/*.pfx
+**/*.pem
+**/*.key
+**/*.crt
+**/*.p12
+
+# ── Test results ─────────────────────────────────────────────────
+**/TestResults/
+**/coverage/
+
+# ── Expo / React Native ──────────────────────────────────────────
+**/.expo/
