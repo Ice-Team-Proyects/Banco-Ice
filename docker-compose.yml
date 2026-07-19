@@ -10,7 +10,7 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-IN6AV}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-Hoc41509}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB:-sistema_bancario_ice}
     ports:
       - "${POSTGRES_PORT:-5436}:5432"
@@ -51,22 +51,22 @@ services:
       ASPNETCORE_URLS: http://+:5210
       DOTNET_USE_POLLING_FILE_WATCHER: "1"
       DOTNET_WATCH_RESTART_ON_RUDE_EDIT: "1"
-      ConnectionStrings__DefaultConnection: "Host=postgres;Database=${POSTGRES_DB:-sistema_bancario_ice};Username=${POSTGRES_USER:-IN6AV};Password=${POSTGRES_PASSWORD:-Hoc41509};Port=5432"
+      ConnectionStrings__DefaultConnection: "Host=postgres;Database=${POSTGRES_DB:-sistema_bancario_ice};Username=${POSTGRES_USER:-IN6AV};Password=${POSTGRES_PASSWORD};Port=5432"
       CloudinarySettings__Cloudname: ${CLOUDINARY_CLOUD_NAME:-dss7fs6pl}
-      CloudinarySettings__ApiKey: ${CLOUDINARY_API_KEY:-915748239273329}
-      CloudinarySettings__ApiSecret: ${CLOUDINARY_API_SECRET:-iwMHJNtQE1U2Evm8JPkb1L-7NWM}
+      CloudinarySettings__ApiKey: ${CLOUDINARY_API_KEY}
+      CloudinarySettings__ApiSecret: ${CLOUDINARY_API_SECRET}
       CloudinarySettings__BaseUrl: ${CLOUDINARY_BASE_URL:-https://res.cloudinary.com/dss7fs6pl/image/upload/v1770409878}
       CloudinarySettings__Folder: ${CLOUDINARY_FOLDER:-auth_ks_in6av/profiles}
       CloudinarySettings__DefaultAvatarPath: ${CLOUDINARY_DEFAULT_AVATAR:-avatarDefault-1749508519496.png}
       SmtpSettings__Host: ${SMTP_HOST:-smtp.gmail.com}
       SmtpSettings__Port: ${SMTP_PORT:-587}
       SmtpSettings__EnableSsl: "true"
-      SmtpSettings__UserName: ${SMTP_USERNAME:-2026iceteam@gmail.com}
-      SmtpSettings__Password: ${SMTP_PASSWORD:-xednudcujdbhahsb}
-      SmtpSettings__FromEmail: ${SMTP_FROM_EMAIL:-2026iceteam@gmail.com}
+      SmtpSettings__UserName: ${SMTP_USERNAME}
+      SmtpSettings__Password: ${SMTP_PASSWORD}
+      SmtpSettings__FromEmail: ${SMTP_FROM_EMAIL}
       SmtpSettings__Enabled: "true"
       AppSettings__FrontendUrl: ${FRONTEND_URL:-http://localhost:5174}
-      JwtSettings__SecretKey: "$$ecretKeyForBanking-$$ervice2024177"
+      JwtSettings__SecretKey: "${JWT_SECRET}"
       JwtSettings__Issuer: ${JWT_ISSUER:-BankingService}
       JwtSettings__Audience: ${JWT_AUDIENCE:-BankingService}
       JwtSettings__ExpiryInMinutes: "60"
@@ -108,7 +108,7 @@ services:
       NODE_ENV: development
       PORT: 3050
       URI_MONGODB: mongodb://mongodb:27017/${MONGO_DB_NAME:-banking-service}
-      JWT_SECRET: "$$ecretKeyForBanking-$$ervice2024177"
+      JWT_SECRET: "${JWT_SECRET}"
       JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-1h}
       JWT_ISSUER: ${JWT_ISSUER:-BankingService}
       JWT_AUDIENCE: ${JWT_AUDIENCE:-BankingService}
