@@ -1,3 +1,4 @@
+using AuthService.Persistence.Data;
 using AuthService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
