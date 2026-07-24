@@ -85,4 +85,40 @@ public class UserManagementService(IUserRepository users, IRoleRepository roles,
             UpdatedAt = u.UpdatedAt
         }).ToList();
     }
+
+    public async Task<UserResponseDto> ActivateUserAsync(string userId)
+    {
+        if (string.IsNullOrWhiteSpace(userId))
+            throw new ArgumentException("Invalid userId", nameof(userId));
+
+        var user = await users.GetByIdAsync(userId)
+            ?? throw new InvalidOperationException("User not found");
+
+        user.Status = true;
+        if (user.UserEmail != null)
+        {
+            user.UserEmail.EmailVerified = true;
+            user.UserEmail.EmailVerificationToken = null;
+            user.UserEmail.EmailVerificationTokenExpiry = null;
+        }
+
+        await users.UpdateUserAsync(user);
+        user = await users.GetByIdAsync(userId);
+
+        var roleName = user.UserRoles.FirstOrDefault()?.Role?.Name ?? RoleConstants.USER_ROLE;
+        return new UserResponseDto
+        {
+            Id = user.Id,
+            Name = user.Name,
+            Surname = user.Surname,
+            Username = user.Username,
+            Email = user.Email,
+            Phone = user.UserProfile?.Phone ?? string.Empty,
+            Role = roleName,
+            Status = user.Status,
+            IsEmailVerified = user.UserEmail?.EmailVerified ?? false,
+            CreatedAt = user.CreatedAt,
+            UpdatedAt = user.UpdatedAt
+        };
+    }
 }

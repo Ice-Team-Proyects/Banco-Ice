@@ -36,4 +36,16 @@ public class UsersController(IUserManagementService userManagementService) : Con
         var users = await userManagementService.GetUsersByRoleAsync(roleName);
         return Ok(users);
     }
+
+    /// <summary>
+    /// Activa/verifica un usuario (solo ADMIN). Útil cuando SMTP no entrega el correo.
+    /// </summary>
+    [HttpPost("{userId}/activate")]
+    [Authorize(Roles = RoleConstants.ADMIN_ROLE)]
+    [EnableRateLimiting("ApiPolicy")]
+    public async Task<ActionResult<UserResponseDto>> ActivateUser(string userId)
+    {
+        var result = await userManagementService.ActivateUserAsync(userId);
+        return Ok(result);
+    }
 }

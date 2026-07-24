@@ -144,13 +144,19 @@ public class AuthService(
             }
         });
 
+        // Si SMTP está deshabilitado (demo/local), devolver el token para poder verificar sin correo.
+        var smtpEnabled = bool.Parse(configuration["SmtpSettings:Enabled"] ?? "true");
+
         // Crear respuesta sin JWT - solo confirmación de registro
         return new RegisterResponseDto
         {
             Success = true,
             User = MapToUserResponseDto(createdUser),
-            Message = "Usuario registrado exitosamente. Por favor, verifica tu email para activar la cuenta.",
-            EmailVerificationRequired = true
+            Message = smtpEnabled
+                ? "Usuario registrado exitosamente. Por favor, verifica tu email para activar la cuenta."
+                : "Usuario registrado exitosamente. SMTP deshabilitado: usa emailVerificationToken para verificar.",
+            EmailVerificationRequired = true,
+            EmailVerificationToken = smtpEnabled ? null : emailVerificationToken
         };
     }
 
